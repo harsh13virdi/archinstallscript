@@ -80,7 +80,6 @@ cd $HOME
 mkdir gitrepo
 git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
 rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
-rm -r ~/gitrepo/tmpdotfiles
 git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 sudo make -C ~/gitrepo/dwm install
 git clone --depth=1 https://github.com/harsh13virdi/st ~/gitrepo/st
@@ -89,6 +88,8 @@ git clone --depth=1 https://github.com/harsh13virdi/dmenu ~/gitrepo/dmenu
 sudo make -C ~/gitrepo/dmenu install
 git clone --depth=1 https://github.com/harsh13virdi/dwmblocks ~/gitrepo/dwmblocks
 sudo make -C ~/gitrepo/dwmblocks install
+
+rm -r ~/gitrepo/tmpdotfiles
 
 
 mkdir sourcecode
