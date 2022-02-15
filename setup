@@ -1,0 +1,102 @@
+# == MY ARCH SETUP INSTALLER == #
+#part1
+printf '\033c'
+echo "Welcome to arch installer script"
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+lsblk
+echo "Enter the drive you want to install the OS on: "
+read drive
+cfdisk $drive
+echo "Enter the partition for your root: "
+read rootpartition
+mkfs.ext4 $rootpartition
+echo "Enter the partition for your home: "
+read homepartition
+mkfs.ext4 $homepartition
+read -p "Did you also create efi partition? [y/n]" answer
+if [[ $answer = y ]] ; then
+  echo "Enter EFI partition: "
+  read efipartition
+  mkfs.fat -F32 $efipartition
+fi
+mount $rootpartition /mnt
+mkdir /mnt/home
+mount $homepartition /mnt/home
+mkdir /mnt/etc
+genfstab -U -p /mnt >> /mnt/etc/fstab
+pacstrap -i /mnt base
+sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
+chmod +x /mnt/arch_install2.sh
+arch-chroot /mnt ./arch_install2.sh
+exit
+
+#part2
+printf '\033c'
+pacman -S --noconfirm sed linux linux-headers linux-lts linux-lts-headers nano base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+systemctl enable NetworkManager
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+#sed -i "s/^#[multilib]$/[multilib]/" /etc/pacman.conf
+#sed -i "s/^#Include = /etc/pacman.d/mirrorlist$/Include = /etc/pacman.d/mirrorlist/" /etc/pacman.conf
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=us" > /etc/vconsole.conf
+echo "Hostname: "
+read hostname
+echo $hostname > /etc/hostname
+echo "127.0.0.1       localhost" >> /etc/hosts
+echo "::1             localhost" >> /etc/hosts
+echo "127.0.1.1       $hostname.localdomain $hostname" >> /etc/hosts
+mkinitcpio -P
+passwd
+pacman --noconfirm -S grub efibootmgr os-prober dosfstools mtools
+echo "Enter EFI partition: "
+read efipartition
+mkdir /boot/EFI
+mount $efipartition /boot/EFI
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+grub-mkconfig -o /boot/grub/grub.cfg
+
+pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g git vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp neofetch obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship sxiv syncthing transmission-gtk ueberzug w3m wine winetricks xbindkeys rsync
+
+echo "INSTALL CPU UCODE AND VIDEO DRIVERS AS NEEDED AFTER INSTALLATION"
+
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo "Enter Username: "
+read username
+useradd -m -g users -G wheel $username
+passwd $username
+echo "Pre-Installation Finish Reboot now"
+ai3_path=/home/$username/arch_install3.sh
+sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
+chown $username:$username $ai3_path
+chmod +x $ai3_path
+su -c $ai3_path -s /bin/sh $username
+exit
+
+#part3
+printf '\033c'
+cd $HOME
+mkdir gitrepo
+git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
+rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
+rm -r ~/gitrepo/tmpdotfiles
+git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
+sudo make -C ~/gitrepo/dwm install
+git clone --depth=1 https://github.com/harsh13virdi/st ~/gitrepo/st
+sudo make -C ~/gitrepo/st install
+git clone --depth=1 https://github.com/harsh13virdi/dmenu ~/gitrepo/dmenu
+sudo make -C ~/gitrepo/dmenu install
+git clone --depth=1 https://github.com/harsh13virdi/dwmblocks ~/gitrepo/dwmblocks
+sudo make -C ~/gitrepo/dwmblocks install
+
+
+mkdir sourcecode
+git clone https://aur.archlinux.org/yay.git ~/sourcecode/yay
+sudo make -C ~/sourcecode/yay install
+
+yay -S ani-cli cli-visualizer nerd-fonts-complete noisetorch simplenote soundux timeshift xwinwrap
+
+exit
