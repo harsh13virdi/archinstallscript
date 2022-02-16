@@ -76,11 +76,16 @@ exit
 #part3
 printf '\033c'
 sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git rsync xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp neofetch obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m wine winetricks xbindkeys rsync
+
 cd $HOME
 mkdir gitrepo
 git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
 rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
 git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
+
+wal -n -i ~/.livewallpaper/mpv-shot0001.jpg
+[[ -f ~/.cache/wal/Xresources ]] && xrdb -merge ~/.cache/wal/Xresources
+
 sudo make -C ~/gitrepo/dwm install
 git clone --depth=1 https://github.com/harsh13virdi/st ~/gitrepo/st
 sudo make -C ~/gitrepo/st install
