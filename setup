@@ -81,11 +81,11 @@ cd $HOME
 mkdir gitrepo
 git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
 rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
-git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 
 wal -n -i ~/.livewallpaper/mpv-shot0001.jpg
 [[ -f ~/.cache/wal/Xresources ]] && xrdb -merge ~/.cache/wal/Xresources
 
+git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 sudo make -C ~/gitrepo/dwm install
 git clone --depth=1 https://github.com/harsh13virdi/st ~/gitrepo/st
 sudo make -C ~/gitrepo/st install
