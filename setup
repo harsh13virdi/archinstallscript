@@ -32,7 +32,7 @@ exit
 
 #part2
 printf '\033c'
-pacman -S --noconfirm sed linux linux-headers linux-lts linux-lts-headers nano base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+pacman -S --noconfirm sed linux linux-headers linux-lts linux-lts-headers base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
 systemctl enable NetworkManager
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 #sed -i "s/^#[multilib]$/[multilib]/" /etc/pacman.conf
