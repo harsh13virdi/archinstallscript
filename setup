@@ -85,6 +85,8 @@ rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
 wal -n -i ~/.livewallpaper/mpv-shot0001.jpg
 [[ -f ~/.cache/wal/Xresources ]] && xrdb -merge ~/.cache/wal/Xresources
 
+mkdir ~/.vim/undodir -p
+
 git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 sudo make -C ~/gitrepo/dwm install
 git clone --depth=1 https://github.com/harsh13virdi/st ~/gitrepo/st
