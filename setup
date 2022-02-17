@@ -75,7 +75,7 @@ exit
 
 #part3
 printf '\033c'
-sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp neofetch obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m xbindkeys rsync
+sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp neofetch obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m xbindkeys rsync mono
 
 cd $HOME
 mkdir gitrepo
