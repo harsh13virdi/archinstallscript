@@ -35,8 +35,9 @@ printf '\033c'
 pacman -S --noconfirm sed linux linux-headers linux-lts linux-lts-headers base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
 systemctl enable NetworkManager
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
-#sed -i "s/^#[multilib]$/[multilib]/" /etc/pacman.conf
-#sed -i "s/^#Include = /etc/pacman.d/mirrorlist$/Include = /etc/pacman.d/mirrorlist/" /etc/pacman.conf
+cp /etc/pacman.conf /etc/pacman.conf.bak
+echo "[multilib]" >> /etc/pacman.conf
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
@@ -86,7 +87,7 @@ exit
 
 #part3
 printf '\033c'
-sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m xbindkeys rsync mono reflector unzip
+sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m xbindkeys rsync mono reflector unzip steam wine winetricks
 
 cd $HOME
 mkdir gitrepo
