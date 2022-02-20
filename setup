@@ -104,6 +104,13 @@ git clone https://aur.archlinux.org/yay.git ~/sourcecode/yay
 cd ~/sourcecode/yay/
 makepkg -si
 
-yay -S ani-cli cli-visualizer nerd-fonts-complete noisetorch simplenote soundux timeshift xwinwrap unityhub pfetch sc-im
+read -p "Do you Have Nvidia GPU? [y/n]" answer
+if [[ $answer = y ]] ; then
+  git clone https://github.com/keylase/nvidia-patch.git ~/sourcecode/nvidia-patch
+  cd ~/sourcecode/nvidia-patch
+  sudo ./patch-fbc.sh
+fi
+
+yay -S ani-cli cli-visualizer nerd-fonts-complete noisetorch simplenote soundux timeshift xwinwrap unityhub pfetch sc-im obs-nvfbc
 
 exit
