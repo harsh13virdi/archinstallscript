@@ -59,7 +59,18 @@ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo "INSTALL CPU UCODE AND VIDEO DRIVERS AS NEEDED AFTER INSTALLATION"
+read -p "Do you have AMD cpu or Intel CPU? [amd/intel]" answer
+if [[ $answer = amd ]] ; then
+  pacman --noconfirm -S amd-ucode
+else
+  pacman --noconfirm -S intel-ucode
+fi
+
+read -p "Do you have AMD gpu or Nvidia gpu? [amd/nvidia]" answer
+if [[ $answer = nvidia ]] ; then
+  pacman --noconfirm -S nvidia nvidia-lts
+fi
+
 
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo "Enter Username: "
