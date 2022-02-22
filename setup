@@ -1,8 +1,15 @@
 # == MY ARCH SETUP INSTALLER == #
 #part1
+
+# Restoring Terminal Defaults
 printf '\033c'
+
 echo "Welcome to arch installer script"
-sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+
+# Increasing pacman's download streams to 5
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
+
+# Printing out conneted drives and asking which drive to partition and how, then mounting them.
 lsblk
 echo "Enter the drive you want to install the OS on: "
 read drive
@@ -22,27 +29,45 @@ fi
 mount $rootpartition /mnt
 mkdir /mnt/home
 mount $homepartition /mnt/home
+
+# Generating fstab file so the system can find our filesystem on reboot
 mkdir /mnt/etc
 genfstab -U -p /mnt >> /mnt/etc/fstab
+
+# Downloading the core system utilities
 pacstrap -i /mnt base
+
+# Generating the second part of the script from the current one and then chrooting into our live installion and executing the new script.
 sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
 arch-chroot /mnt ./arch_install2.sh
 exit
 
 #part2
+
+# Restoring Terminal Defaults
 printf '\033c'
+
+# Downloading the kernel base developement and network packages and starting thier services
 pacman -S --noconfirm sed linux linux-headers linux-lts linux-lts-headers base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
 systemctl enable NetworkManager
+
+# Increasing pacman's download streams to 5
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+
+# Enabling multilib support
 cp /etc/pacman.conf /etc/pacman.conf.bak
 echo "[multilib]" >> /etc/pacman.conf
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
+# Setting up locales keymap and language settings 
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "KEYMAP=us" > /etc/vconsole.conf
+
+# Setting up system name hosts bootloader and the users
 echo "Hostname: "
 read hostname
 echo $hostname > /etc/hostname
@@ -71,6 +96,7 @@ sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
 chown $username:$username $ai3_path
 chmod +x $ai3_path
 
+# Installing various CPU and GPU drivers
 read -p "Are you in a virtual machince? [y/n]" answer
 if [[ $answer = y ]] ; then
   pacman -S virtualbox-guest-utils xf86-video-vmware
@@ -96,9 +122,14 @@ exit
 
 
 #part3
+
+# Setting up terminal defaults 
 printf '\033c'
+
+# Installing programs 
 sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim ntfs-3g vim firefox dunst aerc alsa-utils blender cmatrix curl discord htop kdenlive krita lazygit mpc mpd ncmpcpp obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug w3m xbindkeys rsync mono reflector unzip steam wine winetricks
 
+# Downloading dot files and WindowManager and then compiling them and some other utilities.
 cd $HOME
 mkdir gitrepo
 git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
