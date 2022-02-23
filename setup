@@ -166,6 +166,6 @@ if [[ $answer = y ]] ; then
   sudo ./patch-fbc.sh
 fi
 
-yay -S ani-cli cli-visualizer nerd-fonts-complete noisetorch simplenote soundux timeshift xwinwrap unityhub pfetch sc-im obs-nvfbc
+yay -S ani-cli cli-visualizer nerd-fonts-complete noisetorch simplenote soundux timeshift xwinwrap unityhub sc-im obs-nvfbc
 
 exit
