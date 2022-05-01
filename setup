@@ -119,6 +119,12 @@ else
   pacman --noconfirm -Sy mesa
 fi
 
+# Disabling ipv6 on boot
+ip addr show
+echo "Enter your network device: "
+read netdevice
+echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.d/40-ipv6.conf
+echo "net.ipv6.conf.$netdevice.disable_ipv6 = 1" >> /etc/sysctl.d/40-ipv6.conf
 
 exit
 
@@ -155,7 +161,6 @@ git clone --depth=1 https://git.suckless.org/surf ~/gitrepo/surf
 sudo make -C ~/gitrepo/surf install
 
 rm -r ~/gitrepo/tmpdotfiles
-
 
 mkdir sourcecode
 git clone https://aur.archlinux.org/yay.git ~/sourcecode/yay
