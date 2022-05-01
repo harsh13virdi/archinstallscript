@@ -91,7 +91,7 @@ echo "Enter Username: "
 read username
 useradd -m -g users -G wheel $username
 passwd $username
-echo "Pre-Installation Finish Reboot now"
+
 ai3_path=/home/$username/arch_install3.sh
 sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
 chown $username:users $ai3_path
@@ -118,12 +118,7 @@ else
   pacman --noconfirm -Sy mesa
 fi
 
-# Disabling ipv6 on boot
-ip addr show
-echo "Enter your network device: "
-read netdevice
-echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.d/40-ipv6.conf
-echo "net.ipv6.conf.$netdevice.disable_ipv6 = 1" >> /etc/sysctl.d/40-ipv6.conf
+echo "Pre-Installation Finish Reboot now"
 
 exit
 
