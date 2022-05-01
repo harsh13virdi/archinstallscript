@@ -138,7 +138,7 @@ mkdir gitrepo
 git clone --depth=1 https://github.com/harsh13virdi/dotfiles ~/gitrepo/tmpdotfiles
 rsync --recursive --verbose --exclude '.git' ~/gitrepo/tmpdotfiles/ $HOME/
 
-wal -n -i ~/.livewallpaper/mpv-shot0001.jpg
+wal -i ~/.livewallpaper/mpv-shot0001.jpg
 [[ -f ~/.cache/wal/Xresources ]] && xrdb -merge ~/.cache/wal/Xresources
 
 mkdir ~/.vim/undodir -p
@@ -161,6 +161,6 @@ git clone https://aur.archlinux.org/yay.git ~/sourcecode/yay
 cd ~/sourcecode/yay/
 makepkg -si
 
-yay -S ani-cli nerd-fonts-complete soundux timeshift xwinwrap sc-im
+yay -S ani-cli nerd-fonts-complete soundux timeshift sc-im
 
 exit
