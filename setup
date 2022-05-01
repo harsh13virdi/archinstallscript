@@ -129,7 +129,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk gcr git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal youtube-dl xclip maim vim dunst aerc alsa-utils blender curl discord ffmpegthumbnailer htop kdenlive krita lazygit mpc mpd ncmpcpp nitrogen obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug xbindkeys rsync steam wine winetricks
+sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk gcr git xorg-xkill xorg-xsetroot sxiv mpv ffmpeg fzf python-pywal python-pip youtube-dl xclip maim vim dunst aerc alsa-utils blender curl discord ffmpegthumbnailer htop kdenlive krita lazygit mpc mpd ncmpcpp nitrogen obs-studio pavucontrol pcsx2 picom ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug xbindkeys rsync steam wine winetricks
 
 # Downloading dot files and WindowManager and then compiling them and some other utilities.
 cd $HOME
@@ -162,5 +162,7 @@ cd ~/sourcecode/yay/
 makepkg -si
 
 yay -S ani-cli nerd-fonts-complete soundux timeshift sc-im
+
+pip install rnnoise-cli
 
 exit
