@@ -161,7 +161,7 @@ git clone https://aur.archlinux.org/yay.git ~/sourcecode/yay
 cd ~/sourcecode/yay/
 makepkg -si
 
-yay -S ani-cli nerd-fonts-complete soundux timeshift sc-im picom
+yay -S ani-cli nerd-fonts-complete soundux timeshift sc-im picom pfetch
 
 pip install rnnoise-cli spotdl
 
