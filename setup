@@ -143,6 +143,7 @@ wal -i ~/.livewallpaper/mpv-shot0001.jpg
 
 mkdir ~/.vim/undodir -p
 echo "1 1" > ~/.cache/netlog
+chmod -R +x ~/scripts
 
 git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 sudo make -C ~/gitrepo/dwm install
