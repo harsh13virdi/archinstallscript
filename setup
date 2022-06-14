@@ -129,7 +129,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv calcurse mpv ffmpeg fzf python-pywal python-pip youtube-dl xclip man maim vim dunst aerc alsa-utils blender ctags curl ffmpegthumbnailer htop kdenlive krita lazygit mpc mpd ncmpcpp nitrogen obs-studio pavucontrol pcsx2 plocate ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug xbindkeys rsync
+sudo pacman -Sy --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xsetroot sxiv calcurse mpv firefox ffmpeg fzf python-pywal python-pip youtube-dl xclip man maim vim dunst aerc alsa-utils blender ctags curl ffmpegthumbnailer htop kdenlive krita lazygit mpc mpd ncmpcpp nitrogen obs-studio pavucontrol pcsx2 plocate ppsspp pulseaudio pulsemixer ranger starship syncthing transmission-gtk ueberzug xbindkeys rsync
 
 # Downloading dot files and WindowManager and then compiling them and some other utilities.
 cd $HOME
@@ -142,6 +142,7 @@ wal -i ~/.livewallpaper/mpv-shot0001.jpg
 [[ -f ~/.cache/wal/Xresources ]] && xrdb -merge ~/.cache/wal/Xresources
 
 mkdir ~/.vim/undodir -p
+echo "1 1" > ~/.cache/netlog
 
 git clone --depth=1 https://github.com/harsh13virdi/dwm ~/gitrepo/dwm
 sudo make -C ~/gitrepo/dwm install
