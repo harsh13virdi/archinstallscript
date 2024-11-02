@@ -1,0 +1,156 @@
+#!/bin/sh
+
+# == MY ARCH SETUP INSTALLER == #
+#part1
+
+# Restoring Terminal Defaults
+printf '\033c'
+
+echo "Welcome to Arch Linux installer script!"
+
+# Increasing pacman's download streams to 5
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
+
+# Printing out conneted drives and asking which drive to partition and how, then mounting them.
+lsblk
+echo "Enter the drive you want to install the OS on: "
+read drive
+cfdisk $drive
+echo "Enter the partition for your root: "
+read rootpartition
+mkfs.ext4 $rootpartition
+echo "Enter the partition for your home: "
+read homepartition
+mkfs.ext4 $homepartition
+read -p "Did you also create efi partition? [y/n]" answer
+if [[ $answer = y ]] ; then
+  echo "Enter EFI partition: "
+  read efipartition
+  mkfs.fat -F32 $efipartition
+fi
+mount $rootpartition /mnt
+mkdir /mnt/home
+mount $homepartition /mnt/home
+
+# Generating fstab file so the system can find our filesystem on reboot
+mkdir /mnt/etc
+genfstab -U -p /mnt >> /mnt/etc/fstab
+
+# Downloading the core system utilities
+pacstrap -i /mnt base
+
+# Generating the second part of the script from the current one and then chrooting into our live installion and executing the new script.
+sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
+chmod +x /mnt/arch_install2.sh
+arch-chroot /mnt ./arch_install2.sh
+exit
+
+#part2
+
+# Restoring Terminal Defaults
+printf '\033c'
+
+# Downloading the kernel base developement and network packages and starting thier services
+pacman -S --noconfirm sed linux linux-headers base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+systemctl enable NetworkManager
+
+# Increasing pacman's download streams to 5
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+
+# Enabling multilib support
+echo "[multilib]" >> /etc/pacman.conf
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
+# Setting up locales keymap and language settings 
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=us" > /etc/vconsole.conf
+
+# Setting up system name hosts bootloader and the users
+echo "Hostname: "
+read hostname
+echo $hostname > /etc/hostname
+echo "127.0.0.1       localhost" >> /etc/hosts
+echo "127.0.1.1       $hostname.localdomain $hostname" >> /etc/hosts
+mkinitcpio -P
+passwd
+pacman --noconfirm -Sy grub efibootmgr os-prober dosfstools mtools
+echo "Enter EFI partition: "
+read efipartition
+mkdir /boot/EFI
+mount $efipartition /boot/EFI
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo "Enter Username: "
+read username
+useradd -m -g users -G wheel $username
+passwd $username
+
+ai3_path=/home/$username/arch_install3.sh
+sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
+chown $username:users $ai3_path
+chmod +x $ai3_path
+
+# Installing various CPU and GPU drivers
+read -p "Are you in a virtual machince? [y/n]" answer
+if [[ $answer = y ]] ; then
+  pacman -Sy virtualbox-guest-utils xf86-video-vmware
+  exit
+fi
+
+read -p "Do you have AMD cpu or Intel CPU? [amd/intel]" answer
+if [[ $answer = amd ]] ; then
+  pacman --noconfirm -Sy amd-ucode
+else
+  pacman --noconfirm -Sy intel-ucode
+fi
+
+read -p "Do you have AMD gpu or Nvidia gpu? [amd/nvidia]" answer
+if [[ $answer = nvidia ]] ; then
+  pacman --noconfirm -Sy nvidia
+else
+  pacman --noconfirm -Sy mesa
+fi
+
+echo "Pre-Installation Finish Reboot now"
+
+exit
+
+
+#part3
+
+# Setting up terminal defaults 
+printf '\033c'
+
+# Installing programs 
+sudo pacman -Syu --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xrandr autorandr xorg-xsetroot sxiv calcurse mpv ffmpeg fzf highlight python-pywal xclip man maim neofetch neovim dunst aerc curl ffmpegthumbnailer htop lazygit pavucontrol plocate pulseaudio ranger rsync openssh starship ueberzug xbindkeys timeshift picom reflector qutebrowser 
+
+# Making folders for the user
+ 
+cd $HOME
+mkdir -p .local/screenshots
+mkdir -p .local/gitrepo
+mkdir -p .local/sourcecode
+mkdir -p .local/scripts
+mkdir -p .local/documents
+
+# Generating Dotfiles
+
+
+
+# Downloading wallpapers
+
+cd $HOME
+git clone --depth=1 https://gitlab.com/dwt1/wallpapers .local/wallpapers
+
+# source .bashrc
+wal -i ~/.local/wallpapers/0239.jpg
+
+# Setting up neovim plugins
+
+exit
