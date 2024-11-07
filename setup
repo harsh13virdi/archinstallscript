@@ -134,7 +134,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xrandr autorandr xorg-xsetroot sxiv calcurse mpv ffmpeg fzf highlight python-pywal xclip man maim neofetch neovim dunst aerc curl ffmpegthumbnailer htop lazygit pavucontrol plocate pulseaudio ranger rsync openssh starship ueberzug xbindkeys timeshift picom reflector qutebrowser 
+sudo pacman -Syu --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xrandr autorandr xorg-xsetroot sxiv calcurse mpv ffmpeg fzf python-pywal xclip man flameshot neovim dunst aerc curl ffmpegthumbnailer htop lazygit pavucontrol plocate pulseaudio pulsemixer pzip rsync openssh starship ttf-terminus-nerd xbindkeys picom reflector yazi qutebrowser 
 
 # Making folders for the user
  
