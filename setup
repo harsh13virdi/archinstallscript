@@ -51,7 +51,7 @@ exit
 printf '\033c'
 
 # Downloading the kernel base developement and network packages and starting thier services
-pacman -S --noconfirm sed linux linux-headers base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+pacman -S --noconfirm sed linux linux-headers linux-firmware base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
 systemctl enable NetworkManager
 
 # Increasing pacman's download streams to 5
@@ -118,9 +118,11 @@ fi
 
 read -p "Do you have AMD gpu or Nvidia gpu? [amd/nvidia]" answer
 if [[ $answer = nvidia ]] ; then
-  pacman --noconfirm -Sy nvidia
+  pacman --noconfirm -Sy nvidia lib32-nvidia-utils nvidia-utils
+elseif [[ $answer = amd ]] ; then
+  pacman --noconfirm -Sy mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon xf86-video-amdgpu
 else
-  pacman --noconfirm -Sy mesa
+  pacman --noconfirm -Sy mesa lib32-mesa vulkan-intel lib32-vulkan-intel xorg-server
 fi
 
 echo "Pre-Installation Finish Reboot now"
