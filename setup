@@ -119,7 +119,7 @@ fi
 read -p "Do you have AMD gpu or Nvidia gpu? [amd/nvidia]" answer
 if [[ $answer = nvidia ]] ; then
   pacman --noconfirm -Sy nvidia lib32-nvidia-utils nvidia-utils
-elseif [[ $answer = amd ]] ; then
+elif [[ $answer = amd ]] ; then
   pacman --noconfirm -Sy mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon xf86-video-amdgpu
 else
   pacman --noconfirm -Sy mesa lib32-mesa vulkan-intel lib32-vulkan-intel xorg-server
