@@ -149,16 +149,75 @@ mkdir -p .local/documents
 
 # Generating Dotfiles
 
+cp /etc/bash.bashrc ~/.bashrc
 
+
+#######################
+########BASHRC#########
+#######################
+
+##
+## ~/.bashrc
+##
+#
+## If not running interactively, don't do anything
+#[[ $- != *i* ]] && return
+#PS1='[\u@\h \W]\$ '
+#
+##Quality of life Changes
+#shopt -s autocd
+#set -o vi
+#
+#
+##XDG
+#export XDG_DATA_HOME=$HOME/.local/share
+#export XDG_CONFIG_HOME=$HOME/.config
+#export XDG_STATE_HOME=$HOME/.local/state
+#export XDG_CACHE_HOME=$HOME/.cache
+#
+#
+##ENVAR
+#export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+#export LESSHISTFILE="$XDG_STATE_HOME"/lesshistory
+#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+#export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+#export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
+#export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+#export PATH=~/.local/bin:$PATH
+#export EDITOR=nvim
+#export TERMINAL=st
+#export TERM='xterm-256color'
+#
+#
+##Shortcuts
+#alias l='ls -lAh --color=auto'
+#alias ls='ls --color=auto'
+#alias grep='grep --color=auto'
+#alias vim='nvim'
+#alias updatesite='rsync -vrP ~/.local/documents/HTML/aroaduntraveled/* root@aroaduntraveled.com:/var/www/aroaduntraveled/'
+#alias wget='wget --hsts-file="$XDG_DATA_HOME"/wget-hsts'
+#alias xbindkeys='xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config'
+#
+#eval "$(starship init bash)"
+
+
+#######################
+###HYPRPAPER.CONF######
+#######################
+#
+#
+#preload = $HOME/Pictures/Wallpapers/b-001.jpg
+#wallpaper = , $HOME/Pictures/Wallpapers/b-001.jpg
+#
+#
 
 # Downloading wallpapers
 
 cd $HOME
-git clone --depth=1 https://gitlab.com/dwt1/wallpapers .local/wallpapers
+mkdir Pictures/Wallpapers
+cd Pictures/Wallpapers
+for (( w=1; w<934; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
 
-# source .bashrc
-wal -i ~/.local/wallpapers/0239.jpg
 
-# Setting up neovim plugins
 
 exit
