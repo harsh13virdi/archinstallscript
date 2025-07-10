@@ -136,26 +136,17 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm xorg-server xorg-xinit libx11 libxinerama libxft webkit2gtk git xorg-xkill xorg-xrandr xorg-xsetroot sxiv bash-completion calcurse mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser 
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser 
 
-# Making folders for the user
- 
-cd $HOME
-mkdir -p .local/screenshots
-mkdir -p .local/gitrepo
-mkdir -p .local/sourcecode
-mkdir -p .local/scripts
-mkdir -p .local/documents
 
 # Generating Dotfiles
 
-sed -n '155,169p;170q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~/.bash_profile
+sed -n '150,160p;161q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
 
 
 #######################
 #####BASHPROFILE#######
 #######################
-
 ##
 ## ~/.bash_profile
 ##
@@ -169,7 +160,8 @@ sed -n '155,169p;170q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~
 #fi
 
 
-sed -n '174,222p;223q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/.bashrc
+sed -n '170,214p;215q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
+
 
 #######################
 ########BASHRC#########
@@ -222,7 +214,7 @@ sed -n '174,222p;223q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 #eval "$(starship init bash)"
 
 
-sed -n '227,234p;235q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~/.config/hypr/hyprpaper.conf
+sed -n '222,226p;227q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
 
 #######################
 ########GIT############
@@ -234,7 +226,7 @@ sed -n '227,234p;235q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~
 #	allow = always
 
 
-sed -n '239,247p;248q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~/.config/hypr/hyprpaper.conf
+sed -n '234,239p;240q' ~/arch_install3.sh | cut -c2- >> ~/.config/hypr/hyprpaper.conf
 
 #######################
 ###HYPRPAPER.CONF######
@@ -246,7 +238,7 @@ sed -n '239,247p;248q' Documents/gitrepo/archinstallscript/setup | cut -c2- >> ~
 #
 #
 
-sed -n '251,566p;567q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/.config/hypr/hyprland.conf
+sed -n '247,561p;562q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
 
 #######################
 ###HYPRLAND.CONF#######
@@ -271,7 +263,7 @@ sed -n '251,566p;567q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 ## See https://wiki.hyprland.org/Configuring/Monitors/
 ## monitor=DP-2, 2560x1080@99.94, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness,1.2, sdrsaturation, 0.98, vrr, 1
 #
-#monitor=DP-2, 2560x1080@99.94, 0x0, 1
+#monitor = , preferred, auto, 1
 #
 ####################
 #### MY PROGRAMS ###
@@ -303,7 +295,8 @@ sed -n '251,566p;567q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 ##############################
 #
 ## See https://wiki.hyprland.org/Configuring/Environment-variables/
-#
+##env = LIBVA_DRIVER_NAME,nvidia
+##env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 #env = XCURSOR_SIZE,24
 #env = HYPRCURSOR_SIZE,24
 #
@@ -555,8 +548,11 @@ sed -n '251,566p;567q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 ## See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 ## See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
 #
-## Example windowrule
-## windowrule = float,class:^(kitty)$,title:^(kitty)$
+## windowrules for pinning windows to specific workspaces
+#windowrule = workspace 4 silent,title:Steam
+#windowrule = workspace 8 silent,title:.*qutebrowser
+#windowrule = workspace 6 silent,title:.*Discord
+#
 #
 ## Ignore maximize requests from apps. You'll probably like this.
 #windowrule = suppressevent maximize, class:.*
@@ -566,7 +562,7 @@ sed -n '251,566p;567q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 #
 
 mkdir -p ~/.cache/nvim/undodir
-sed -n '574,625p;626q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/.config/nvim/init.vim
+sed -n '569,620p;621q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 
 #######################
 ######INIT.VIM#########
@@ -623,6 +619,19 @@ sed -n '574,625p;626q' Documents/gitrepo/archinstallscript/setup | cut -c2- > ~/
 #" Show the status on the second to last line.
 #set laststatus=2
 #
+
+
+#######################
+########WAYBAR#########
+#######################
+
+mkdir -p ~/.config/waybar
+cp /etc/xdg/waybar/* ~/.config/waybar/
+sed -i 's/workspaces button.focused/workspaces button.active/' ~/.config/waybar/style.css
+sed -i 's/font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;/font-family: Terminess Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;/' ~/.config/waybar/style.css
+sed -i 's/sway/hyprland/' ~/.config/waybar/config.jsonc
+sed -i 's/"idle_inhibitor",//' ~/.config/waybar/config.jsonc
+sed -i 's/"custom/power",//' ~/.config/waybar/config.jsonc
 
 # Downloading wallpapers
 
