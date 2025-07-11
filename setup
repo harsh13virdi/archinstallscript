@@ -141,7 +141,7 @@ sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-des
 
 # Generating Dotfiles
 
-sed -n '150,160p;161q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
+sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
 
 
 #######################
@@ -160,7 +160,7 @@ sed -n '150,160p;161q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
 #fi
 
 
-sed -n '170,214p;215q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
+sed -n '33,81p;82q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
 
 
 #######################
@@ -213,8 +213,8 @@ sed -n '170,214p;215q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
 #
 #eval "$(starship init bash)"
 
-
-sed -n '222,226p;227q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
+mkdir -p ~/.config/git
+sed -n '89,93p;94q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
 
 #######################
 ########GIT############
@@ -225,8 +225,8 @@ sed -n '222,226p;227q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
 #[protocol "file"]
 #	allow = always
 
-
-sed -n '234,239p;240q' ~/arch_install3.sh | cut -c2- >> ~/.config/hypr/hyprpaper.conf
+mkdir -p ~/.config/hypr
+sed -n '103,104p;105q' ~/arch_install3.sh | cut -c2- >> ~/.config/hypr/hyprpaper.conf
 
 #######################
 ###HYPRPAPER.CONF######
@@ -238,7 +238,7 @@ sed -n '234,239p;240q' ~/arch_install3.sh | cut -c2- >> ~/.config/hypr/hyprpaper
 #
 #
 
-sed -n '247,561p;562q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
+sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
 
 #######################
 ###HYPRLAND.CONF#######
@@ -562,7 +562,8 @@ sed -n '247,561p;562q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #
 
 mkdir -p ~/.cache/nvim/undodir
-sed -n '569,620p;621q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim
+sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 
 #######################
 ######INIT.VIM#########
@@ -638,7 +639,7 @@ sed -i 's/"custom/power",//' ~/.config/waybar/config.jsonc
 cd $HOME
 mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
-for (( w=1; w<934; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
+for (( w=1; w<2; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
 
 
 
