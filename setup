@@ -136,7 +136,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser 
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi
 
 sudo systemctl enable pipewire && sudo systemctl enable wireplumber
 
@@ -477,7 +477,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #bind = $mainMod, E, exec, $fileManager
 #bind = $mainMod, V, togglefloating,
 #bind = $mainMod, R, exec, $menu
-## bind = $mainMod, P, pseudo, # dwindle
+#bind = Alt_L, F4, exec, kill -9 $(hyprctl activewindow | grep pid | tail -1 | awk '{print$2}')
 ## bind = $mainMod, J, togglesplit, # dwindle
 #
 ## Window manipulation
@@ -633,6 +633,16 @@ sed -i 's/font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;/font-f
 sed -i 's/sway/hyprland/' ~/.config/waybar/config.jsonc
 sed -i 's/"idle_inhibitor",//' ~/.config/waybar/config.jsonc
 sed -i 's/"custom/power",//' ~/.config/waybar/config.jsonc
+
+
+#######################
+#########ROFI##########
+#######################
+mkdir -p ~/.config/rofi
+echo '@theme "dmenu.rasi"' > ~/.config/rofi/config.rasi
+cp /usr/share/rofi/themes/dmenu.rasi ~/.config/rofi/dmenu.rasi
+sed -i 's/Roman 12/Terminess Nerd Font 14/' ~/.config/rofi/dmenu.rasi
+sed -i 's/north/south/g' ~/.config/rofi/dmenu.rasi
 
 # Downloading wallpapers
 
