@@ -272,9 +272,9 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 ## See https://wiki.hyprland.org/Configuring/Keywords/
 #
 ## Set programs that you use
-#$terminal = st
-#$fileManager = st -e ranger
-#$menu = dmenu_run
+#$terminal = alacritty
+#$fileManager = alacritty -e ranger
+#$menu = rofi -show run
 #
 #
 ##################
@@ -293,14 +293,14 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 ##############################
 #### ENVIRONMENT VARIABLES ###
 ##############################
-#
 ## See https://wiki.hyprland.org/Configuring/Environment-variables/
 ##env = LIBVA_DRIVER_NAME,nvidia
 ##env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+#env = XDG_CURRENT_DESKTOP,Hyprland
+#env = XDG_SESSION_TYPE,wayland
+#env = XDG_SESSION_DESKTOP,Hyprland
 #env = XCURSOR_SIZE,24
 #env = HYPRCURSOR_SIZE,24
-#
-#
 ####################
 #### PERMISSIONS ###
 ####################
@@ -643,6 +643,18 @@ echo '@theme "dmenu.rasi"' > ~/.config/rofi/config.rasi
 cp /usr/share/rofi/themes/dmenu.rasi ~/.config/rofi/dmenu.rasi
 sed -i 's/Roman 12/Terminess Nerd Font 14/' ~/.config/rofi/dmenu.rasi
 sed -i 's/north/south/g' ~/.config/rofi/dmenu.rasi
+
+#######################
+######ALACRITTY########
+#######################
+mkdir -p ~/.config/alacritty
+echo '[font]' > ~/.config/alacritty/alacritty.toml
+echo 'size = 8.0' >> ~/.config/alacritty/alacritty.toml
+echo '[font.normal]' >> ~/.config/alacritty/alacritty.toml
+echo 'family = "Terminess Nerd Font"' >> ~/.config/alacritty/alacritty.toml
+echo 'style = "Regular"' >> ~/.config/alacritty/alacritty.toml
+echo '[window]' >> ~/.config/alacritty/alacritty.toml
+echo 'opacity = 0.6' >> ~/.config/alacritty/alacritty.toml
 
 # Downloading wallpapers
 
