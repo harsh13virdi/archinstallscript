@@ -641,7 +641,7 @@ sed -i 's/"custom/power",//' ~/.config/waybar/config.jsonc
 mkdir -p ~/.config/rofi
 echo '@theme "dmenu.rasi"' > ~/.config/rofi/config.rasi
 cp /usr/share/rofi/themes/dmenu.rasi ~/.config/rofi/dmenu.rasi
-sed -i 's/Roman 12/Terminess Nerd Font 14/' ~/.config/rofi/dmenu.rasi
+sed -i 's/Times New Roman 12/Terminess Nerd Font 14/' ~/.config/rofi/dmenu.rasi
 sed -i 's/north/south/g' ~/.config/rofi/dmenu.rasi
 
 #######################
