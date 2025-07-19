@@ -136,9 +136,9 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman
 
-#sudo systemctl enable pipewire && sudo systemctl enable wireplumber
+sudo systemctl enable bluetooth
 
 # Generating Dotfiles
 sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
