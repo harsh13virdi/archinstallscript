@@ -141,7 +141,7 @@ sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-des
 sudo systemctl enable bluetooth
 
 # Generating Dotfiles
-sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- >> ~/.bash_profile
+sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
 
 
 #######################
