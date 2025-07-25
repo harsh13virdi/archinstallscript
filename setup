@@ -621,6 +621,62 @@ sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 #set laststatus=2
 #
 
+#######################
+#######SCRIPTS#########
+#######################
+
+mkdir -p ~/.local/scripts
+sed -n '498,518p;519q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountlocalvol
+
+##!/bin/sh
+#
+#lsblk
+#
+#echo "Enter the drive you want to mount:"
+#read drive
+#echo "Where do you want to mount the drive?"
+#read mountpath
+#sudo mkdir -p $mountpath
+#sudo chown $(id -u):$(id -g) $mountpath
+#
+##finding UUID
+#UUID=$(lsblk -f | grep $drive | awk '{print $4}')
+#fs=$(lsblk -f | grep $drive | awk '{print $2}')
+#
+#echo " " | sudo tee -a /etc/fstab
+#echo "# /dev/$drive" | sudo tee -a /etc/fstab
+#echo "UUID=$UUID    $mountpath  $fs rw,relatime 0   0" | sudo tee -a /etc/fstab
+#
+#sudo systemctl daemon-reload
+#sudo mount -a
+
+sed -n '522,546p;547q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountsmbvol
+
+##!/bin/sh
+#
+#sudo pacman -Syu cifs-utils
+#
+#echo "Enter the url/IP of your share:"
+#read ndrive
+#echo "Where do you want to mount the drive?"
+#read mountpath
+#sudo mkdir -p $mountpath
+#sudo chown $(id -u):$(id -g) $mountpath
+#
+##Saving credentials
+#echo "Username:"
+#read user
+#echo "Password:"
+#read pass
+#echo "username=$user" | sudo tee /etc/.smbcred
+#echo "password=$pass" | sudo tee -a /etc/.smbcred
+#
+#echo " " | sudo tee -a /etc/fstab
+#echo "# Network Share" | sudo tee -a /etc/fstab
+#echo "$ndrive    $mountpath cifs    uid=$(id -u),gid=$(id -g),credentials=/etc/.smbcred,iocharset=utf8   0   0" | sudo tee -a /etc/fstab
+#
+#sudo systemctl daemon-reload
+#sudo mount -a
 
 #######################
 ########WAYBAR#########
