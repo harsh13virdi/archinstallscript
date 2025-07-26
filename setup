@@ -539,7 +539,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #bindl = , XF86AudioPrev, exec, playerctl previous
 #
 ## Binds for ScriptExec
-#bind = $mainMod, F, exec, st -e fuzzyopen
+#bind = $mainMod, F, exec, alacritty -e fuzzyopen
 #
 ###############################
 #### WINDOWS AND WORKSPACES ###
@@ -552,7 +552,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #windowrule = workspace 4 silent,title:Steam
 #windowrule = workspace 8 silent,title:.*qutebrowser
 #windowrule = workspace 6 silent,title:.*Discord
-#
+#windowrule = workspace 3 silent,title:.*Blender
 #
 ## Ignore maximize requests from apps. You'll probably like this.
 #windowrule = suppressevent maximize, class:.*
