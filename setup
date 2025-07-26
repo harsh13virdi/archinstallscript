@@ -680,25 +680,25 @@ sed -n '522,546p;547q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountsmb
 
 sed -n '550,562p;563q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/disableipv6
 
-#!/bin/sh
-
-ip addr show
-
-echo "Enter your network device: "
-read netdev
-
-echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee /etc/sysctl.d/40-ipv6.conf
-echo "net.ipv6.conf.$netdev.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.d/40-ipv6.conf
-
-cat /etc/sysctl.d/40-ipv6.conf
-
-echo "Add -->sudo systemctl restart systemd-sysctl.service &<-- to your init script of liking to automatically unbind the ipv6 address assigned to your ethernet controller"
+##!/bin/sh
+#
+#ip addr show
+#
+#echo "Enter your network device: "
+#read netdev
+#
+#echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee /etc/sysctl.d/40-ipv6.conf
+#echo "net.ipv6.conf.$netdev.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.d/40-ipv6.conf
+#
+#cat /etc/sysctl.d/40-ipv6.conf
+#
+#echo "Add -->sudo systemctl restart systemd-sysctl.service &<-- to your init script of liking to automatically unbind the ipv6 address assigned to your ethernet controller"
 
 sed -n '566,568p;569q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/fuzzyopen
 
-#! /bin/sh
-
-find ~/ | fzf | xargs -I{} xdg-open {}
+##! /bin/sh
+#
+#find ~/ | fzf | xargs -I{} xdg-open {}
 
 sudo chmod +x ~/.local/scripts/mountlocalvol
 sudo chmod +x ~/.local/scripts/mountsmbvol
@@ -747,6 +747,18 @@ mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
 for (( w=1; w<2; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
 
+# Installing Yay
 
+cd $HOME
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay --version
+cd $HOME
+rm -r yay
+
+# Installing Aur Packages
+
+yay -Syu xpadneo-dkms
 
 exit
