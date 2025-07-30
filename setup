@@ -598,7 +598,7 @@ sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 #set wrapmargin=0
 #set wrap
 #set linebreak
-#set columns=80
+#
 #
 #let mapleader = " "
 #
@@ -714,9 +714,9 @@ cp /etc/xdg/waybar/* ~/.config/waybar/
 sed -i 's/workspaces button.focused/workspaces button.active/' ~/.config/waybar/style.css
 sed -i 's/font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;/font-family: Terminess Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;/' ~/.config/waybar/style.css
 sed -i 's/sway/hyprland/' ~/.config/waybar/config.jsonc
-sed -i 's/"idle_inhibitor",//' ~/.config/waybar/config.jsonc
+sed -i '20d' ~/.config/waybar/config.jsonc
 sed -i 's/"tray",/"tray"/' ~/.config/waybar/config.jsonc
-sed -i 's|"custom/power"||' ~/.config/waybar/config.jsonc
+sed -i '33d' ~/.config/waybar/config.jsonc
 
 
 #######################
