@@ -136,7 +136,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim
 
 sudo systemctl enable bluetooth
 
@@ -739,6 +739,14 @@ echo 'family = "Terminess Nerd Font"' >> ~/.config/alacritty/alacritty.toml
 echo 'style = "Regular"' >> ~/.config/alacritty/alacritty.toml
 echo '[window]' >> ~/.config/alacritty/alacritty.toml
 echo 'opacity = 0.6' >> ~/.config/alacritty/alacritty.toml
+
+#######################
+######FLAMESHOT########
+#######################
+mkdir -p ~/.config/flameshot
+echo '[General]' > ~/.config/flameshot/flameshot.ini
+echo 'contrastOpacity=188' >> ~/.config/flameshot/flameshot.ini
+echo 'useGrimAdapter=true' >> ~/.config/flameshot/flameshot.ini
 
 # Downloading wallpapers
 
