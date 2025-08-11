@@ -700,10 +700,24 @@ sed -n '566,568p;569q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/fuzzyope
 #
 #find ~/ | fzf | xargs -I{} xdg-open {}
 
+sed -n '572,581p;582q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/updatewp
+
+##!/usr/bin/env bash
+#
+#WALLPAPER_DIR="$HOME/Pictures/Wallpapers/"
+#CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+#
+## Get a random wallpaper that is not the current one
+#WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
+#
+## Apply the selected wallpaper
+#hyprctl hyprpaper reload ,"$WALLPAPER"
+
 sudo chmod +x ~/.local/scripts/mountlocalvol
 sudo chmod +x ~/.local/scripts/mountsmbvol
 sudo chmod +x ~/.local/scripts/disableipv6
 sudo chmod +x ~/.local/scripts/fuzzyopen
+sudo chmod +x ~/.local/scripts/updatewp
 
 #######################
 ########WAYBAR#########
