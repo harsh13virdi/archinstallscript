@@ -214,7 +214,7 @@ sed -n '33,81p;82q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
 #eval "$(starship init bash)"
 
 mkdir -p ~/.config/git
-sed -n '89,93p;94q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
+sed -n '89,93p;94q' ~/arch_install3.sh | cut -c2- > ~/.config/git/config
 
 #######################
 ########GIT############
@@ -226,7 +226,7 @@ sed -n '89,93p;94q' ~/arch_install3.sh | cut -c2- >> ~/.config/git/config
 #	allow = always
 
 mkdir -p ~/.config/hypr
-sed -n '103,104p;105q' ~/arch_install3.sh | cut -c2- >> ~/.config/hypr/hyprpaper.conf
+sed -n '103,104p;105q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprpaper.conf
 
 #######################
 ###HYPRPAPER.CONF######
