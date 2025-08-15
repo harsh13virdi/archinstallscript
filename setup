@@ -1193,8 +1193,8 @@ yay -Syu xpadneo-dkms python-pywal16
 
 # Setting up Wallpaper for first use
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-257.jpg
-echo "preload = $wallpaper" > ~/.config/hypr/hyprpaper.conf
-echo "wallpaper = , $wallpaper" >> ~/.config/hypr/hyprpaper.conf
+echo "preload = ~/Pictures/Wallpapers/b-257.jpg" > ~/.config/hypr/hyprpaper.conf
+echo "wallpaper = , ~/Pictures/Wallpapers/b-257.jpg" >> ~/.config/hypr/hyprpaper.conf
 cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 
