@@ -561,7 +561,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
 #
 
-mkdir -p ~/.cache/nvim/undodir
+mkdir -p ~/.local/share/nvim/undodir
 mkdir -p ~/.config/nvim
 sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 
@@ -582,7 +582,7 @@ sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 #set smartcase
 #set noswapfile
 #set nobackup
-#set undodir=~/.cache/nvim/undodir
+#set undodir=~/.local/share/nvim/undodir
 #set undofile
 #set incsearch
 #set scrolloff=8
@@ -1175,7 +1175,7 @@ sudo chmod +x ~/.local/scripts/updatetheme
 cd $HOME
 mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
-for (( w=1; w<934; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
+for (( w=257; w<258; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
 
 # Installing Yay
 
