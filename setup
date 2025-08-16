@@ -369,7 +369,6 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #
 #
 #
-#
 ## https://wiki.hyprland.org/Configuring/Variables/#animations
 #animations {
 #    enabled = yes, please :)
@@ -419,6 +418,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 ## See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
 #master {
 #    new_status = master
+#    new_on_top = true
 #}
 #
 ## https://wiki.hyprland.org/Configuring/Variables/#misc
@@ -835,8 +835,8 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #
 #window#waybar {{
 #    background-color: {color14.rgba};
-#    border-bottom: 3px solid {color9.rgba};
-#    border-top: 3px solid {color9.rgba};
+#    border-bottom: 3px solid {color1.rgba};
+#    border-top: 3px solid {color1.rgba};
 #    color: {color0};
 #    transition-property: background-color;
 #    transition-duration: .5s;
@@ -858,11 +858,45 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #button:hover {{
 #    background: inherit;
 #    text-shadow: inherit;
+#    box-shadow: inherit;
+#}}
+#
+##clock,#battery,#cpu,#memory,#network,#pulseaudio,#tray,#power-profiles-daemon {{
+#    padding: 0 10px;
+#    margin: 3 0px;
+#    color: #ffffff;
 #}}
 #
 #/* you can set a style on hover for any module like this */
-##cpu:hover,#network:hover,#power-profiles-daemon:hover,#clock:hover,#memory:hover,#pulseaudio:hover {{
-#    background-color: {color12};
+##pulseaudio,#battery {{
+#    background-color: {color2};
+#    color: {color0};
+#}}
+#
+##pulseaudio:hover {{
+#    background-color: {color10};
+#}}
+#
+##clock {{
+#    background-color: {color6};
+#    color: {color0};
+#}}
+#
+##clock:hover {{
+#    background-color: {color14};
+#}}
+#
+##network,#cpu,#memory {{
+#    background-color: {color5};
+#    color: {color0};
+#}}
+#
+##cpu:hover,#network:hover,#memory:hover {{
+#    background-color: {color13};
+#}}
+#
+##tray {{
+#    background-color: {color11};
 #}}
 #
 ##workspaces button {{
@@ -884,21 +918,7 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #    background-color: #eb4d4b;
 #}}
 #
-##clock,
-##battery,
-##cpu,
-##memory,
-##network,
-##pulseaudio,
-##tray,
-##power-profiles-daemon {{
-#    padding: 0 10px;
-#    margin: 3 0px;
-#    color: #ffffff;
-#}}
-#
-##window,
-##workspaces {{
+##window,#workspaces {{
 #    margin: 0 4px;
 #}}
 #
@@ -910,16 +930,6 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #/* If workspaces is the rightmost module, omit right margin */
 #.modules-right > widget:last-child > #workspaces {{
 #    margin-right: 0;
-#}}
-#
-##clock {{
-#    background-color: {color11};
-#    color: {color0};
-#}}
-#
-##battery {{
-#    background-color: {color11};
-#    color: {color0};
 #}}
 #
 ##battery.charging, #battery.plugged {{
@@ -969,38 +979,14 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #    color: {color0};
 #}}
 #
-##cpu {{
-#    background-color: {color11};
-#    color: {color0};
-#}}
-#
-##memory {{
-#    background-color: {color11};
-#    color: {color0};
-#}}
-#
-##network {{
-#    background-color: {color11};
-#    color: {color0};
-#}}
-#
 ##network.disconnected {{
 #    background-color: {color15};
-#    color: {color0};
-#}}
-#
-##pulseaudio {{
-#    background-color: {color11};
 #    color: {color0};
 #}}
 #
 ##pulseaudio.muted {{
 #    background-color: {color15};
 #    color: {color0};
-#}}
-#
-##tray {{
-#    background-color: {color11};
 #}}
 #
 ##tray > .passive {{
@@ -1011,7 +997,20 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #    -gtk-icon-effect: highlight;
 #    background-color: #eb4d4b;
 #}}
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 
 #######################
 #######SCRIPTS#########
@@ -1154,7 +1153,6 @@ echo 'useGrimAdapter=true' >> ~/.config/flameshot/flameshot.ini
 ranger --copy-config all
 sed -i "s/column_ratios 1,3,4/column_ratios 1,2,2/" ~/.config/ranger/rc.conf
 sed -i "s/preview_files true/preview_files false/" ~/.config/ranger/rc.conf
-sed -i "s/collapse_preview false/collapse_preview true/" ~/.config/ranger/rc.conf
 sed -i "s/draw_borders none/draw_borders both/" ~/.config/ranger/rc.conf
 sed -i "s/update_title false/update_title true/" ~/.config/ranger/rc.conf
 sed -i "s/tilde_in_titlebar false/tilde_intitlebar true/" ~/.config/ranger/rc.conf
@@ -1185,7 +1183,8 @@ cd yay
 makepkg -si
 yay --version
 cd $HOME
-rm -r yay
+sudo rm -rf yay
+sudo pacman -Rsn go
 
 # Installing Aur Packages
 
