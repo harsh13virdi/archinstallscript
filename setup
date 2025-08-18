@@ -363,12 +363,6 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #
 #
 #
-#
-#
-#
-#
-#
-#
 ## https://wiki.hyprland.org/Configuring/Variables/#animations
 #animations {
 #    enabled = yes, please :)
@@ -540,6 +534,11 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #
 ## Binds for ScriptExec
 #bind = $mainMod, F, exec, alacritty -e fuzzyopen
+#bind = $mainMod SHIFT, B, exec, blender
+#bind = $mainMod SHIFT, S, exec, steam
+#bind = $mainMod SHIFT, D, exec, discord
+#bind = $mainMod SHIFT ALT_L, B, exec, qutebrowser
+#bind = , Print, exec, flameshot screen -p ~/Pictures/
 #
 ###############################
 #### WINDOWS AND WORKSPACES ###
@@ -553,6 +552,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #windowrule = workspace 8 silent,title:.*qutebrowser
 #windowrule = workspace 6 silent,title:.*Discord
 #windowrule = workspace 3 silent,title:.*Blender
+#windowrule = workspace 5 silent,title:.*mpv
 #
 ## Ignore maximize requests from apps. You'll probably like this.
 #windowrule = suppressevent maximize, class:.*
