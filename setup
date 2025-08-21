@@ -1179,6 +1179,25 @@ sudo ufw limit ssh
 sudo ufw enable
 sudo systemctl enable sshd
 
+# Configuring Wake on Lan
+
+ip addr show
+
+echo "Choose the device you want to use for wake on lan: "
+read netdev
+
+netdevMacadd=$(ip addr show "$netdev" | awk 'NR==2 {print$2}')
+
+echo "[Match]" | sudo tee /etc/systemd/network/50-wired.link
+echo "MACAddress=$netdevMacadd" | sudo tee -a /etc/systemd/network/50-wired.link
+echo " " | sudo tee -a /etc/systemd/network/50-wired.link
+echo "[Link]" | sudo tee -a /etc/systemd/network/50-wired.link
+echo "NamePolicy=kernel database onboard slot path" | sudo tee -a /etc/systemd/network/50-wired.link
+echo "MACAddressPolicy=persistent" | sudo tee -a /etc/systemd/network/50-wired.link
+echo "WakeOnLan=magic" | sudo tee -a /etc/systemd/network/50-wired.link
+
+cat /etc/systemd/network/50-wired.link
+
 # Downloading wallpapers
 
 cd $HOME
