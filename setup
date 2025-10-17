@@ -446,7 +446,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #
 ## https://wiki.hyprland.org/Configuring/Variables/#gestures
 #gestures {
-#    workspace_swipe = false
+#    workspace_swipe_touch = false
 #}
 #
 ## Example per-device config
