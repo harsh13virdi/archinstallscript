@@ -136,7 +136,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop
 
 sudo systemctl enable bluetooth
 
