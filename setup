@@ -288,6 +288,7 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 #exec-once = dunst
 #exec-once = hyprpolkitagent
 #exec-once = hyprpaper
+#exec-once = syncthing --no-browser
 #exec-once = udiskie
 #
 ##############################
@@ -327,7 +328,6 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 ## https://wiki.hyprland.org/Configuring/Variables/#general
 #
 #source = ~/.cache/wal/hyprland-looknfeel.conf
-#
 #
 #
 #
@@ -568,56 +568,56 @@ sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 #######################
 ######INIT.VIM#########
 #######################
-#syntax enable
-#
-#filetype plugin on
-#set notermguicolors
-#set nocompatible
-#set noerrorbells
-#set tabstop=4 softtabstop=4
-#set shiftwidth=4
-#set expandtab
-#set smartindent
-#set hidden
-#set smartcase
-#set noswapfile
-#set nobackup
-#set undodir=~/.local/share/nvim/undodir
-#set undofile
-#set incsearch
-#set scrolloff=8
-#set showmode
-#set showcmd
-#set nu rnu
-#set spell spelllang=en_us
-#
 #hi Normal guibg=NONE ctermbg=NONE
-#
-#"Word wrap
-#set textwidth=0
-#set wrapmargin=0
-#set wrap
-#set linebreak
-#
-#
+#syntax enable
+#filetype plugin on
+#set nu rnu cursorline wrap textwidth=0 wrapmargin=0 linebreak scrolloff=8 sidescrolloff=8
+#set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smartindent autoindent
+#set ignorecase smartcase incsearch
+#set notermguicolors showmatch showmode showcmd
+#set nobackup noswapfile undofile undodir=~/.local/share/nvim/undodir
+#set nocompatible noerrorbells hidden iskeyword+=- path+=** clipboard+=unnamedplus wildmenu spell spelllang=en_us
+#set splitbelow splitright
+#set showtabline=1 tabline=''
 #let mapleader = " "
-#
-#set path+=**
-#set wildmenu
-#
-#" Clear status line when vimrc is reloaded.
+#nnoremap <leader>c :nohlsearch<CR>
+#nnoremap Y y$
+#nnoremap n nzzzv
+#nnoremap N Nzzzv
+#nnoremap <C-d> <C-d>zz
+#nnoremap <C-u> <C-u>zz
+#nnoremap <leader>bn :bnext<CR>
+#nnoremap <leader>bp :bprevious<CR>
+#nnoremap <C-h> <C-w>h
+#nnoremap <C-j> <C-w>j
+#nnoremap <C-k> <C-w>k
+#nnoremap <C-l> <C-w>l
+#nnoremap <leader>sv :vsplit<CR>
+#nnoremap <leader>sh :split<CR>
+#nnoremap <C-Up> :resize +2<CR>
+#nnoremap <C-Down> :resize -2<CR>
+#nnoremap <C-Left> :vertical resize -2<CR>
+#nnoremap <C-Right> :vertical resize +2<CR>
+#nnoremap <A-j> :m .+1<CR>==
+#nnoremap <A-k> :m .-2<CR>==
+#vnoremap <A-j> :m '>+1<CR>gv=gv
+#vnoremap <A-k> :m '>-2<CR>gv=gv
+#vnoremap < <gv
+#vnoremap > >gv
+#nnoremap <leader>e :Explore<CR>
+#nnoremap <leader>ff :find
+#nnoremap J mzJ`z
+#nnoremap <leader>rc :e $MYVIMRC<CR>
+#nnoremap <leader>rl :so $MYVIMRC<CR>
+#nnoremap <leader>tn :tabnew<CR>
+#nnoremap <leader>tx :tabclose<CR>
+#nnoremap <leader>tm :tabmove<CR>
+#nnoremap <leader>tr :tabmove +1<CR>
+#nnoremap <leader>tl :tabmove -1<CR>
 #set statusline=
-#
-#" Status line left side.
 #set statusline+=\ %F\ %M\ %Y\ %R
-#
-#" Use a divider to separate the left side from the right side.
 #set statusline+=%=
-#
-#" Status line right side.
 #set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
-#
-#" Show the status on the second to last line.
 #set laststatus=2
 #
 
