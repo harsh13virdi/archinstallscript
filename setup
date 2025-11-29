@@ -136,13 +136,13 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd
 
 sudo systemctl enable bluetooth
+sudo systemctl enable keyd
 
 # Generating Dotfiles
 sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
-
 
 #######################
 #####BASHPROFILE#######
@@ -1159,6 +1159,19 @@ sed -i "s/update_title false/update_title true/" ~/.config/ranger/rc.conf
 sed -i "s/tilde_in_titlebar false/tilde_in_titlebar true/" ~/.config/ranger/rc.conf
 sed -i "s/cd_tab_fuzzy false/cd_tab_fuzzy true/" ~/.config/ranger/rc.conf
 sed -i "s/line_numbers false/line_numbers relative/" ~/.config/ranger/rc.conf
+
+#######################
+#########KEYD##########
+#######################
+echo '[id]' > /etc/keyd/default.conf
+echo ' ' > /etc/keyd/default.conf
+echo '*' > /etc/keyd/default.conf
+echo ' ' > /etc/keyd/default.conf
+echo '[main]' > /etc/keyd/default.conf
+echo ' ' > /etc/keyd/default.conf
+echo 'capslock = overload(control, esc)' > /etc/keyd/default.conf
+echo ' ' > /etc/keyd/default.conf
+echo 'esc = capslock' > /etc/keyd/default.conf
 
 # Making all of the generated scripts executable
 
