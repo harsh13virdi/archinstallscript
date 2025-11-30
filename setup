@@ -1240,5 +1240,17 @@ echo "wallpaper = , ~/Pictures/Wallpapers/b-257.jpg" >> ~/.config/hypr/hyprpaper
 cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 
+# Setting up pywal for qutebrowser
+
+mkdir ~/.local/share/repositories -p
+mkdir ~/.config/qutebrowser -p
+cd ~/.local/share/repositories
+git clone https://github.com/harsh13virdi/qutewal
+cd qutewal
+cp ./qutewal.py ~/.config/qutebrowser/
+
+echo "config.load_autoconfig()" > ~/.config/qutebrowser/config.py
+echo "config.source('qutewal.py')" >> ~/.config/qutebrowser/config.py
+
 
 exit
