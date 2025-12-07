@@ -1,3 +1,3 @@
 # archinstallscript
 
-A simple Bash script to automate installation of Arch Linux
+A simple Bash script that sets up a customized Arch Linux environment.
