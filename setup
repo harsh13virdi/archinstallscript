@@ -142,11 +142,9 @@ sudo systemctl enable bluetooth
 sudo systemctl enable keyd
 
 # Generating Dotfiles
-sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
+sed -n '/^##BASHPROFILE#$/,/^#BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
 
-#######################
-#####BASHPROFILE#######
-#######################
+##BASHPROFILE#
 ##
 ## ~/.bash_profile
 ##
@@ -158,15 +156,13 @@ sed -n '14,27p;28q' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
 #elif [[ "$(tty)" = "/dev/tty2" ]]; then
 #    pgrep dwm || startx
 #fi
+#BASHPROFILEEND#
 
 
-sed -n '33,81p;82q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
+sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bashrc
 
 
-#######################
-########BASHRC#########
-#######################
-
+##BASHRC#
 ##
 ## ~/.bashrc
 ##
@@ -212,36 +208,35 @@ sed -n '33,81p;82q' ~/arch_install3.sh | cut -c2- > ~/.bashrc
 #fi
 #
 #eval "$(starship init bash)"
+##BASHRCEND#
 
 mkdir -p ~/.config/git
-sed -n '89,93p;94q' ~/arch_install3.sh | cut -c2- > ~/.config/git/config
+sed -n '/^##GIT#$/,/^##GITEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/git/config
 
-#######################
-########GIT############
-#######################
+##GIT#
 #[user]
 #   email = harsh13virdi@gmail.com
 #	name = Harsh Virdi
 #[protocol "file"]
 #	allow = always
+##GITEND#
 
 mkdir -p ~/.config/hypr
-sed -n '103,104p;105q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprpaper.conf
+sed -n '/^##HYPRPAPERCONF#$/,/^##HYPRPAPERCONFEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprpaper.conf
 
-#######################
-###HYPRPAPER.CONF######
-#######################
+##HYPRPAPERCONF#
 #
 #
 #preload =
 #wallpaper =
 #
 #
+##HYPRPAPERCONFEND#
 
-sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
+sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
 
 #######################
-###HYPRLAND.CONF#######
+###HYPRLANDCONF########
 #######################
 
 ## This is an example Hyprland config file.
@@ -560,14 +555,14 @@ sed -n '114,429p;430q' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.c
 ## Fix some dragging issues with XWayland
 #windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
 #
+#######################
+##HYPRLANDCONFEND######
 
 mkdir -p ~/.local/share/nvim/undodir
 mkdir -p ~/.config/nvim
-sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
+sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 
-#######################
-######INIT.VIM#########
-#######################
+##INITVIM#
 #hi Normal guibg=NONE ctermbg=NONE
 #syntax enable
 #filetype plugin on
@@ -620,14 +615,16 @@ sed -n '438,489p;490q' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
 #set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 #set laststatus=2
 #
+##INITVIMEND#
+
+mkdir -p ~/.config/waybar
+sed -n '/#\/\/WAYBARCONFIG/,/#\/\/WAYBARCONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/waybar/config.jsonc
 
 #######################
 ########WAYBAR#########
 #######################
 
-mkdir -p ~/.config/waybar
-sed -n '498,591p;592q' ~/arch_install3.sh | cut -c2- > ~/.config/waybar/config.jsonc
-
+#//WAYBARCONFIG
 #// -*- mode: jsonc -*-
 #{
 #    // "layer": "top", // Waybar at top layer
@@ -722,6 +719,7 @@ sed -n '498,591p;592q' ~/arch_install3.sh | cut -c2- > ~/.config/waybar/config.j
 #        "on-click": "pavucontrol"
 #    },
 #}
+#//WAYBARCONFIGEND
 
 
 #######################
@@ -729,9 +727,9 @@ sed -n '498,591p;592q' ~/arch_install3.sh | cut -c2- > ~/.config/waybar/config.j
 #######################
 
 mkdir -p ~/.config/wal/templates
+sed -n '/#\/\/ROFICONFIG/,/#\/\/ROFICONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/dmenu.rasi
 
-sed -n '602,646p;647q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/dmenu.rasi
-
+#//ROFICONFIG
 #/**
 # * ROFI Color theme
 # * User: Qball
@@ -777,9 +775,12 @@ sed -n '602,646p;647q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/d
 #  background-color: inherit;
 #  text-color: inherit;
 #}}
+#//ROFICONFIGEND
 
-sed -n '650,693p;694q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/hyprland-looknfeel.conf
+sed -n '/##HYPRLANDLOOKNFEEL/,/##HYPRLANDLOOKNFEELEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/hyprland-looknfeel.conf
 
+##HYPRLANDLOOKNFEEL
+#
 #general {{
 #    gaps_in = 3
 #    gaps_out = 3
@@ -824,9 +825,11 @@ sed -n '650,693p;694q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/h
 #        vibrancy = 0.1696
 #    }}
 #}}
+##HYPRLANDLOOKNFEELEND
 
-sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/waybar-style.css
+sed -n '/#\/*WAYBARSTYLE*\//,/#\/*WAYBARSTYLEEND*\//p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/waybar-style.css
 
+#/*WAYBARSTYLE*/
 #* {{
 #    /* `otf-font-awesome` is required to be installed for icons */
 #    font-family: Terminess Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
@@ -1011,6 +1014,7 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 #
 #
 #
+#/*WAYBARSTYLEEND*/
 
 #######################
 #######SCRIPTS#########
@@ -1018,8 +1022,9 @@ sed -n '697,880p;881q' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/w
 
 mkdir -p ~/.local/scripts
 
-sed -n '890,910p;911q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountlocalvol
+sed -n '/^#MOUNTLOCALVOLSCRIPT$/,/^#MOUNTLOCALVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/mountlocalvol
 
+#MOUNTLOCALVOLSCRIPT
 ##!/bin/sh
 #
 #lsblk
@@ -1041,9 +1046,11 @@ sed -n '890,910p;911q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountloc
 #
 #sudo systemctl daemon-reload
 #sudo mount -a
+#MOUNTLOCALVOLSCRIPTEND
 
-sed -n '914,938p;939q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountsmbvol
+sed -n '/^#MOUNTSMBVOLSCRIPT$/,/^#MOUNTSMBVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/mountsmbvol
 
+#MOUNTSMBVOLSCRIPT
 ##!/bin/sh
 #
 #sudo pacman -Syu cifs-utils
@@ -1069,9 +1076,11 @@ sed -n '914,938p;939q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/mountsmb
 #
 #sudo systemctl daemon-reload
 #sudo mount -a
+#MOUNTSMBVOLSCRIPTEND
 
-sed -n '942,954p;955q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/disableipv6
+sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/disableipv6
 
+#DISABLEIPV6
 ##!/bin/sh
 #
 #ip addr show
@@ -1085,15 +1094,19 @@ sed -n '942,954p;955q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/disablei
 #cat /etc/sysctl.d/40-ipv6.conf
 #
 #echo "Add -->sudo systemctl restart systemd-sysctl.service &<-- to your init script of liking to automatically unbind the ipv6 address assigned to your ethernet controller"
+#DISABLEIP6END
 
-sed -n '958,960p;961q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/fuzzyopen
+sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/fuzzyopen
 
+#FUZZYOPEN
 ##! /bin/sh
 #
 #find ~/ | fzf | xargs -I{} xdg-open {}
+#FUZZYOPENEND
 
-sed -n '964,973p;974q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/randomwp
+sed -n '/^#RANDOMWP$/,/^#RANDOMWPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/randomwp
 
+#RANDOMWP
 ##!/usr/bin/env bash
 #
 #WALLPAPER_DIR="$HOME/Pictures/Wallpapers/"
@@ -1104,9 +1117,11 @@ sed -n '964,973p;974q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/randomwp
 #
 ## Apply the selected wallpaper
 #hyprctl hyprpaper reload ,"$WALLPAPER"
+#RANDOMWPEND
 
-sed -n '977,987p;988q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/updatetheme
+sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/updatetheme
 
+#UPDATETHEME
 ##!/bin/sh
 #
 #wallpaper=$(sxiv -frto ~/Pictures/Wallpapers/)
@@ -1118,6 +1133,7 @@ sed -n '977,987p;988q' ~/arch_install3.sh | cut -c2- > ~/.local/scripts/updateth
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 #
 #killall -SIGUSR2 waybar
+#UPDATETHEMEEND
 
 
 #######################
