@@ -156,7 +156,7 @@ sed -n '/^##BASHPROFILE#$/,/^#BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- 
 #elif [[ "$(tty)" = "/dev/tty2" ]]; then
 #    pgrep dwm || startx
 #fi
-#BASHPROFILEEND#
+##BASHPROFILEEND#
 
 
 sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bashrc
@@ -804,7 +804,7 @@ sed -n '/##HYPRLANDLOOKNFEEL/,/##HYPRLANDLOOKNFEELEND/p' ~/arch_install3.sh | cu
 #}}
 ##HYPRLANDLOOKNFEELEND
 
-sed -n '/#\/*WAYBARSTYLE*\//,/#\/*WAYBARSTYLEEND*\//p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/waybar-style.css
+sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/waybar-style.css
 
 #/*WAYBARSTYLE*/
 #* {{
