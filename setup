@@ -152,7 +152,7 @@ sed -n '/^##BASHPROFILE#$/,/^#BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- 
 #[[ -f ~/.bashrc ]] && . ~/.bashrc
 #
 #if [[ "$(tty)" = "/dev/tty1" ]]; then
-#    pgrep hyprland || hyprland
+#    pgrep hyprland || start-hyprland
 #elif [[ "$(tty)" = "/dev/tty2" ]]; then
 #    pgrep dwm || startx
 #fi
