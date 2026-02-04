@@ -222,17 +222,6 @@ sed -n '/^##GIT#$/,/^##GITEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/git
 ##GITEND#
 
 mkdir -p ~/.config/hypr
-sed -n '/^##HYPRPAPERCONF#$/,/^##HYPRPAPERCONFEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprpaper.conf
-
-##HYPRPAPERCONF#
-#
-#
-#preload =
-#wallpaper =
-#
-#
-##HYPRPAPERCONFEND#
-
 sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install3.sh | cut -c2- > ~/.config/hypr/hyprland.conf
 
 #######################
@@ -1099,8 +1088,13 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #
 #wallpaper=$(sxiv -frto ~/Pictures/Wallpapers/)
 #wal --cols16 lighten -n --contrast 1.5 -i "$wallpaper"
-#echo "preload = $wallpaper" > ~/.config/hypr/hyprpaper.conf
-#echo "wallpaper = , $wallpaper" >> ~/.config/hypr/hyprpaper.conf
+#echo "wallpaper {" > ~/.config/hypr/hyprpaper.conf
+#echo "  monitor =" >> ~/.config/hypr/hyprpaper.conf
+#echo "  path = $wallpaper" >> ~/.config/hypr/hyprpaper.conf
+#echo "  fit_mode = cover" >> ~/.config/hypr/hyprpaper.conf
+#echo "}" >> ~/.config/hypr/hyprpaper.conf
+#echo " " >> ~/.config/hypr/hyprpaper.conf
+#echo "splash = 0" >> ~/.config/hypr/hyprpaper.conf
 #hyprctl hyprpaper reload ,"$wallpaper"
 #cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
@@ -1224,8 +1218,13 @@ yay -Syu xpadneo-dkms python-pywal16
 
 # Setting up Wallpaper for first use
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-257.jpg
-echo "preload = ~/Pictures/Wallpapers/b-257.jpg" > ~/.config/hypr/hyprpaper.conf
-echo "wallpaper = , ~/Pictures/Wallpapers/b-257.jpg" >> ~/.config/hypr/hyprpaper.conf
+echo "wallpaper {" > ~/.config/hypr/hyprpaper.conf
+echo "  monitor =" >> ~/.config/hypr/hyprpaper.conf
+echo "  path = /home/$(whoami)/Pictures/Wallpapers/b-257.jpg" >> ~/.config/hypr/hyprpaper.conf
+echo "  fit_mode = cover" >> ~/.config/hypr/hyprpaper.conf
+echo "}" >> ~/.config/hypr/hyprpaper.conf
+echo " " >> ~/.config/hypr/hyprpaper.conf
+echo "splash = 0" >> ~/.config/hypr/hyprpaper.conf
 cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 
