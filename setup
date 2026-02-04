@@ -1152,7 +1152,7 @@ echo '*' > /etc/keyd/default.conf
 echo ' ' > /etc/keyd/default.conf
 echo '[main]' > /etc/keyd/default.conf
 echo ' ' > /etc/keyd/default.conf
-echo 'capslock = overload(control, esc)' > /etc/keyd/default.conf
+echo 'capslock = esc' > /etc/keyd/default.conf
 echo ' ' > /etc/keyd/default.conf
 echo 'esc = capslock' > /etc/keyd/default.conf
 
