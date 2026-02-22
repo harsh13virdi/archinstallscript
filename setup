@@ -500,6 +500,9 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #bind = $mainMod SHIFT ALT_L, B, exec, qutebrowser
 #bind = , Print, exec, flameshot screen -p ~/Pictures/
 #
+## Global Keybinds
+#bind = , mouse:276, pass, class:^(TeamSpeak)$  # Pass MOUSE5 to TeamSpeak.
+#
 ###############################
 #### WINDOWS AND WORKSPACES ###
 ###############################
