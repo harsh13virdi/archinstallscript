@@ -136,7 +136,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -153,8 +153,6 @@ sed -n '/^##BASHPROFILE#$/,/^#BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- 
 #
 #if [[ "$(tty)" = "/dev/tty1" ]]; then
 #    pgrep hyprland || start-hyprland
-#elif [[ "$(tty)" = "/dev/tty2" ]]; then
-#    pgrep dwm || startx
 #fi
 ##BASHPROFILEEND#
 
@@ -186,10 +184,7 @@ sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash
 ##ENVAR
 #export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 #export LESSHISTFILE="$XDG_STATE_HOME"/lesshistory
-#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-#export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 #export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
-#export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 #export PATH=~/.local/bin:~/.local/scripts:$PATH
 #export EDITOR=nvim
 #export TERMINAL=alacritty
@@ -247,8 +242,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 ## See https://wiki.hyprland.org/Configuring/Monitors/
 ##monitor=DP-2, 2560x1080@99.94, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 1
 #monitor=DP-2, 2560x1080@99.94, 0x0, 1, vrr, 1
-##monitor=HDMI-A-2, 1920x1080@120.00, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 1
-##monitor=HDMI-A-2, 1920x1080@120.00, 0x0, 1, vrr, 1
+##monitor=HDMI-A-2, 2560x1080@120.00, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 1
+##monitor=HDMI-A-2, 2560x1080@120.00, 0x0, 1, vrr, 1
 ##monitor=DP-2, disable
 #monitor=HDMI-A-2, disable
 #
@@ -467,8 +462,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 #
 ## Example special workspace (scratchpad)
-#bind = $mainMod, S, togglespecialworkspace, magic
-#bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+#bind = $mainMod, `, togglespecialworkspace, magic
+#bind = $mainMod SHIFT, `, movetoworkspace, special:magic
 #
 ## Scroll through existing workspaces with mainMod + scroll
 #bind = $mainMod, mouse_down, workspace, e+1
@@ -501,7 +496,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #bind = , Print, exec, flameshot screen -p ~/Pictures/
 #
 ## Global Keybinds
-#bind = , mouse:276, pass, class:^(TeamSpeak)$  # Pass MOUSE5 to TeamSpeak.
+#bind = , mouse:276, pass, class:^(TeamSpeak)$  
+#bind = , mouse:276, pass, class:^(Discord)$  
 #
 ###############################
 #### WINDOWS AND WORKSPACES ###
@@ -511,11 +507,22 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 ## See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
 #
 ## windowrules for pinning windows to specific workspaces
-#windowrule = workspace 4 silent, match:title .*Steam.*
-#windowrule = workspace 8 silent,match:title .*qutebrowser
-#windowrule = workspace 6 silent,match:title .*Discord
 #windowrule = workspace 3 silent,match:title .*Blender
+#windowrule = workspace 3 silent,match:title .*Kdenlive
+#windowrule = workspace 3 silent,match:title .*Krita
+#windowrule = workspace 4 silent, match:title .*Steam.*
+#windowrule = workspace 4 silent, match:title .*RPCS3.*
+#windowrule = workspace 4 silent, match:title .*PCSX2.*
+#windowrule = workspace 4 silent, match:title .*Lutris.*
 #windowrule = workspace 5 silent,match:title .*mpv
+#windowrule = workspace 5 silent,match:title .*OBS.*
+#windowrule = workspace 6 silent,match:title .*Discord
+#windowrule = workspace 6 silent,match:title .*TeamSpeak.*
+#windowrule = workspace 6 silent,match:title .*Mumble.*
+#windowrule = workspace 7 silent,match:class .*pcmanfm
+#windowrule = workspace 7 silent,match:class .*Sxiv
+#windowrule = workspace 8 silent,match:title .*qutebrowser
+#windowrule = workspace 10 silent,match:class org.pulseaudio.pavucontrol
 #
 ## Ignore maximize requests from apps. You'll probably like this.
 #windowrule = suppress_event maximize, match:class .*
@@ -1066,23 +1073,9 @@ sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '
 #FUZZYOPEN
 ##! /bin/sh
 #
-#find ~/ | fzf | xargs -I{} xdg-open {}
+#item="$(find ~/ | fzf)"
+#xdg-open "$item" || nvim "$item"
 #FUZZYOPENEND
-
-sed -n '/^#RANDOMWP$/,/^#RANDOMWPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/randomwp
-
-#RANDOMWP
-##!/usr/bin/env bash
-#
-#WALLPAPER_DIR="$HOME/Pictures/Wallpapers/"
-#CURRENT_WALL=$(hyprctl hyprpaper listloaded)
-#
-## Get a random wallpaper that is not the current one
-#WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-#
-## Apply the selected wallpaper
-#hyprctl hyprpaper reload ,"$WALLPAPER"
-#RANDOMWPEND
 
 sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/updatetheme
 
@@ -1098,7 +1091,7 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #echo "}" >> ~/.config/hypr/hyprpaper.conf
 #echo " " >> ~/.config/hypr/hyprpaper.conf
 #echo "splash = 0" >> ~/.config/hypr/hyprpaper.conf
-#hyprctl hyprpaper reload ,"$wallpaper"
+#hyprctl hyprpaper wallpaper ,"$wallpaper"
 #cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 #
@@ -1165,7 +1158,6 @@ sudo chmod +x ~/.local/scripts/mountlocalvol
 sudo chmod +x ~/.local/scripts/mountsmbvol
 sudo chmod +x ~/.local/scripts/disableipv6
 sudo chmod +x ~/.local/scripts/fuzzyopen
-sudo chmod +x ~/.local/scripts/randomwp
 sudo chmod +x ~/.local/scripts/updatetheme
 
 # Configuring firewall and OpenSSH
