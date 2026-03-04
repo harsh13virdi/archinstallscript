@@ -136,7 +136,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git sxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit pavucontrol plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -271,6 +271,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #exec-once = hyprpolkitagent
 #exec-once = hyprpaper
 #exec-once = udiskie
+#exec-once = xrdb -load ~/.cache/wal/colors.Xresources
 #
 ##############################
 #### ENVIRONMENT VARIABLES ###
@@ -520,9 +521,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #windowrule = workspace 6 silent,match:title .*TeamSpeak.*
 #windowrule = workspace 6 silent,match:title .*Mumble.*
 #windowrule = workspace 7 silent,match:class .*pcmanfm
-#windowrule = workspace 7 silent,match:class .*Sxiv
+#windowrule = workspace 7 silent,match:title .*nsxiv
 #windowrule = workspace 8 silent,match:title .*qutebrowser
-#windowrule = workspace 10 silent,match:class org.pulseaudio.pavucontrol
 #
 ## Ignore maximize requests from apps. You'll probably like this.
 #windowrule = suppress_event maximize, match:class .*
@@ -701,7 +701,7 @@ sed -n '/#\/\/WAYBARCONFIG/,/#\/\/WAYBARCONFIGEND/p' ~/arch_install3.sh | cut -c
 #            "car": "",
 #            "default": ["", "", ""]
 #        },
-#        "on-click": "pavucontrol"
+#        "on-click": "alacritty -e wiremix"
 #    },
 #}
 #//WAYBARCONFIGEND
@@ -988,6 +988,40 @@ sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | 
 #
 #/*WAYBARSTYLEEND*/
 
+mkdir ~/.config/flameshot
+sed -n '/#\/\/FLAMESHOTCONFIG/,/#\/\/FLAMESHOTCONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/flameshot.ini
+
+#//FLAMESHOTCONFIG
+#[General]
+#contrastOpacity=188
+#savePath=~/Pictures
+#useGrimAdapter=true
+#uiColor={color1}
+#contrastUiColor={color10}
+#//FLAMESHOTCONFIGEND
+
+mkdir ~/.config/dunst
+sed -n '/^#DUNSTRC$/,/^#DUNSTRCEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/wal/templates/dunstrc
+
+#DUNSTRC
+#    frame_color = "{color14}ff"
+#[urgency_low]
+#    background = "{color10}ff"
+#    foreground = "#888888"
+#    timeout = 10
+#
+#[urgency_normal]
+#    background = "{color9}ff"
+#    foreground = "#ffffff"
+#    timeout = 10
+#
+#[urgency_critical]
+#    background = "#900000"
+#    foreground = "#ffffff"
+#    frame_color = "#ff0000"
+#    timeout = 0
+#DUNSTRCEND
+
 #######################
 #######SCRIPTS#########
 #######################
@@ -1082,7 +1116,7 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #UPDATETHEME
 ##!/bin/sh
 #
-#wallpaper=$(sxiv -frto ~/Pictures/Wallpapers/)
+#wallpaper=$(nsxiv -frto ~/Pictures/Wallpapers/)
 #wal --cols16 lighten -n --contrast 1.5 -i "$wallpaper"
 #echo "wallpaper {" > ~/.config/hypr/hyprpaper.conf
 #echo "  monitor =" >> ~/.config/hypr/hyprpaper.conf
@@ -1094,7 +1128,11 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #hyprctl hyprpaper wallpaper ,"$wallpaper"
 #cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
+#cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
+#cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 #
+#xrdb -load ~/.cache/wal/colors.Xresources
+#dunstctl reload
 #killall -SIGUSR2 waybar
 #UPDATETHEMEEND
 
@@ -1118,14 +1156,6 @@ echo '[window]' >> ~/.config/alacritty/alacritty.toml
 echo 'opacity = 0.8' >> ~/.config/alacritty/alacritty.toml
 echo '[general]' >> ~/.config/alacritty/alacritty.toml
 echo 'import = ["~/.cache/wal/colors-alacritty.toml",]' >> ~/.config/alacritty/alacritty.toml
-
-#######################
-######FLAMESHOT########
-#######################
-mkdir -p ~/.config/flameshot
-echo '[General]' > ~/.config/flameshot/flameshot.ini
-echo 'contrastOpacity=188' >> ~/.config/flameshot/flameshot.ini
-echo 'useGrimAdapter=true' >> ~/.config/flameshot/flameshot.ini
 
 #######################
 ########RANGER#########
@@ -1222,6 +1252,8 @@ echo " " >> ~/.config/hypr/hyprpaper.conf
 echo "splash = 0" >> ~/.config/hypr/hyprpaper.conf
 cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
+cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
+xrdb -load ~/.cache/wal/colors.Xresources
 
 # Setting up pywal for qutebrowser
 
