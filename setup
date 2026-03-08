@@ -105,7 +105,7 @@ chmod +x $ai3_path
 # Installing various CPU and GPU drivers
 read -p "Are you in a virtual machince? [y/n]" answer
 if [[ $answer = y ]] ; then
-  pacman -Sy virtualbox-guest-utils xf86-video-vmware
+  pacman --noconfirm -Sy virtualbox-guest-utils xf86-video-vmware
   exit
 fi
 
@@ -119,10 +119,13 @@ fi
 read -p "Do you have AMD gpu or Nvidia gpu? [amd/nvidia/intel]" answer
 if [[ $answer = nvidia ]] ; then
   pacman --noconfirm -Sy nvidia lib32-nvidia-utils nvidia-utils
+  echo "GPU=NVIDIA" > /etc/.archinstallscriptconf
 elif [[ $answer = amd ]] ; then
   pacman --noconfirm -Sy mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon xf86-video-amdgpu
+  echo "GPU=AMD" > /etc/.archinstallscriptconf
 else
   pacman --noconfirm -Sy mesa lib32-mesa vulkan-intel lib32-vulkan-intel xorg-server
+  echo "GPU=INTEL" > /etc/.archinstallscriptconf
 fi
 
 echo "Pre-Installation Finish Reboot now"
@@ -136,7 +139,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils blueman otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -185,7 +188,7 @@ sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash
 #export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 #export LESSHISTFILE="$XDG_STATE_HOME"/lesshistory
 #export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
-#export PATH=~/.local/bin:~/.local/scripts:$PATH
+#export PATH=~/.local/bin:$PATH
 #export EDITOR=nvim
 #export TERMINAL=alacritty
 #export RANGER_LOAD_DEFAULT_RC=FALSE
@@ -268,7 +271,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #
 #exec-once = waybar
 #exec-once = dunst
-#exec-once = hyprpolkitagent
+#exec-once = systemctl --user start hyprpolkitagent
 #exec-once = hyprpaper
 #exec-once = udiskie
 #exec-once = xrdb -load ~/.cache/wal/colors.Xresources
@@ -290,7 +293,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #env = HYPRCURSOR_SIZE,24
 
 ##QT
-#env = QT_QPA_PLATFORMTHEME,qt5ct
+#env = QT_QPA_PLATFORMTHEME,hyprqt6engine
 
 ####################
 #### PERMISSIONS ###
@@ -1033,7 +1036,7 @@ sed -n '/^#DUNSTRC$/,/^#DUNSTRCEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$
 
 mkdir -p ~/.local/scripts
 
-sed -n '/^#MOUNTLOCALVOLSCRIPT$/,/^#MOUNTLOCALVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/mountlocalvol
+sed -n '/^#MOUNTLOCALVOLSCRIPT$/,/^#MOUNTLOCALVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/mountlocalvol
 
 #MOUNTLOCALVOLSCRIPT
 ##!/bin/sh
@@ -1059,7 +1062,7 @@ sed -n '/^#MOUNTLOCALVOLSCRIPT$/,/^#MOUNTLOCALVOLSCRIPTEND$/p' ~/arch_install3.s
 #sudo mount -a
 #MOUNTLOCALVOLSCRIPTEND
 
-sed -n '/^#MOUNTSMBVOLSCRIPT$/,/^#MOUNTSMBVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/mountsmbvol
+sed -n '/^#MOUNTSMBVOLSCRIPT$/,/^#MOUNTSMBVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/mountsmbvol
 
 #MOUNTSMBVOLSCRIPT
 ##!/bin/sh
@@ -1089,7 +1092,7 @@ sed -n '/^#MOUNTSMBVOLSCRIPT$/,/^#MOUNTSMBVOLSCRIPTEND$/p' ~/arch_install3.sh | 
 #sudo mount -a
 #MOUNTSMBVOLSCRIPTEND
 
-sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/disableipv6
+sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/disableipv6
 
 #DISABLEIPV6
 ##!/bin/sh
@@ -1107,7 +1110,7 @@ sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | se
 #echo "Add -->sudo systemctl restart systemd-sysctl.service &<-- to your init script of liking to automatically unbind the ipv6 address assigned to your ethernet controller"
 #DISABLEIP6END
 
-sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/fuzzyopen
+sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/fuzzyopen
 
 #FUZZYOPEN
 ##! /bin/sh
@@ -1116,7 +1119,7 @@ sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '
 #xdg-open "$item" || nvim "$item"
 #FUZZYOPENEND
 
-sed -n '/^#GETTEMP$/,/^#GETTEMPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/gettemp
+sed -n '/^#GETTEMP$/,/^#GETTEMPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/gettemp
 
 #GETTEMP
 ##!/bin/sh
@@ -1129,7 +1132,7 @@ sed -n '/^#GETTEMP$/,/^#GETTEMPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$
 #do true; done
 #GETTEMPEND
 
-sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/updatetheme
+sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/updatetheme
 
 #UPDATETHEME
 ##!/bin/sh
@@ -1202,12 +1205,12 @@ echo 'esc = capslock' > /etc/keyd/default.conf
 
 # Making all of the generated scripts executable
 
-sudo chmod +x ~/.local/scripts/mountlocalvol
-sudo chmod +x ~/.local/scripts/mountsmbvol
-sudo chmod +x ~/.local/scripts/disableipv6
-sudo chmod +x ~/.local/scripts/fuzzyopen
-sudo chmod +x ~/.local/scripts/updatetheme
-sudo chmod +x ~/.local/scripts/gettemp
+sudo chmod +x ~/.local/bin/mountlocalvol
+sudo chmod +x ~/.local/bin/mountsmbvol
+sudo chmod +x ~/.local/bin/disableipv6
+sudo chmod +x ~/.local/bin/fuzzyopen
+sudo chmod +x ~/.local/bin/updatetheme
+sudo chmod +x ~/.local/bin/gettemp
 
 # Configuring firewall and OpenSSH
 sudo systemctl enable ufw
@@ -1243,7 +1246,7 @@ cat /etc/systemd/network/50-wired.link
 cd $HOME
 mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
-for (( w=257; w<258; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
+for (( w=306; w<307; w++ )); do   curl -LOS "https://raw.githubusercontent.com/whoisYoges/lwalpapers/PicturesOnly/wallpapers/$(printf b-%0.3d.jpg "$w")"; done
 
 # Installing Yay
 
@@ -1264,7 +1267,7 @@ yay -Syu xpadneo-dkms python-pywal16
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-257.jpg
 echo "wallpaper {" > ~/.config/hypr/hyprpaper.conf
 echo "  monitor =" >> ~/.config/hypr/hyprpaper.conf
-echo "  path = /home/$(whoami)/Pictures/Wallpapers/b-257.jpg" >> ~/.config/hypr/hyprpaper.conf
+echo "  path = /home/$(whoami)/Pictures/Wallpapers/b-306.jpg" >> ~/.config/hypr/hyprpaper.conf
 echo "  fit_mode = cover" >> ~/.config/hypr/hyprpaper.conf
 echo "}" >> ~/.config/hypr/hyprpaper.conf
 echo " " >> ~/.config/hypr/hyprpaper.conf
