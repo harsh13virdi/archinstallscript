@@ -629,6 +629,7 @@ sed -n '/#\/\/WAYBARCONFIG/,/#\/\/WAYBARCONFIGEND/p' ~/arch_install3.sh | cut -c
 #        "pulseaudio",
 #        "network",
 #        "cpu",
+#        "custom/gettemp",
 #        "memory",
 #        "battery",
 #        "battery#bat2",
@@ -684,6 +685,10 @@ sed -n '/#\/\/WAYBARCONFIG/,/#\/\/WAYBARCONFIGEND/p' ~/arch_install3.sh | cut -c
 #        "format-linked": "{ifname} (No IP) ",
 #        "format-disconnected": "Disconnected ⚠",
 #        "on-click": "alacritty -e nmtui"
+#    },
+#    "custom/gettemp": {
+#        "exec": "gettemp",
+#        "format": "{text} "
 #    },
 #    "pulseaudio": {
 #        "format": "{volume}% {icon} {format_source}",
@@ -849,7 +854,7 @@ sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | 
 #    box-shadow: inherit;
 #}}
 #
-##clock,#battery,#cpu,#memory,#network,#pulseaudio,#tray,#power-profiles-daemon {{
+##clock,#battery,#cpu,#memory,#network,#pulseaudio,#tray,#power-profiles-daemon,#custom-gettemp {{
 #    padding: 0 10px;
 #    margin: 3 0px;
 #    color: #ffffff;
@@ -874,12 +879,12 @@ sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | 
 #    background-color: {color14};
 #}}
 #
-##network,#cpu,#memory {{
+##network,#cpu,#memory,#custom-gettemp {{
 #    background-color: {color5};
 #    color: {color0};
 #}}
 #
-##cpu:hover,#network:hover,#memory:hover {{
+##cpu:hover,#network:hover,#memory:hover,custom-gettemp:hover {{
 #    background-color: {color13};
 #}}
 #
@@ -1111,6 +1116,19 @@ sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '
 #xdg-open "$item" || nvim "$item"
 #FUZZYOPENEND
 
+sed -n '/^#GETTEMP$/,/^#GETTEMPEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/gettemp
+
+#GETTEMP
+##!/bin/sh
+#
+#while
+#    cputemp=$(sensors | grep Tctl | awk '{print$2}' | cut -c2-)
+#    gputemp=$(sensors | grep edge | awk '{print$2}' | cut -c2-)
+#    echo $cputemp $gputemp
+#    sleep 2s
+#do true; done
+#GETTEMPEND
+
 sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/scripts/updatetheme
 
 #UPDATETHEME
@@ -1189,6 +1207,7 @@ sudo chmod +x ~/.local/scripts/mountsmbvol
 sudo chmod +x ~/.local/scripts/disableipv6
 sudo chmod +x ~/.local/scripts/fuzzyopen
 sudo chmod +x ~/.local/scripts/updatetheme
+sudo chmod +x ~/.local/scripts/gettemp
 
 # Configuring firewall and OpenSSH
 sudo systemctl enable ufw
