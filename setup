@@ -145,7 +145,7 @@ sudo systemctl enable bluetooth
 sudo systemctl enable keyd
 
 # Generating Dotfiles
-sed -n '/^##BASHPROFILE#$/,/^#BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
+sed -n '/^##BASHPROFILE#$/,/^##BASHPROFILEEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash_profile
 
 ##BASHPROFILE#
 ##
@@ -774,7 +774,7 @@ sed -n '/#\/\/ROFICONFIG/,/#\/\/ROFICONFIGEND/p' ~/arch_install3.sh | cut -c2- >
 #}}
 #//ROFICONFIGEND
 
-sed -n '/##HYPRLANDLOOKNFEEL/,/##HYPRLANDLOOKNFEELEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/hyprland-looknfeel.conf
+sed -n '/^##HYPRLANDLOOKNFEEL$/,/^##HYPRLANDLOOKNFEELEND$/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/hyprland-looknfeel.conf
 
 ##HYPRLANDLOOKNFEEL
 #
@@ -1038,7 +1038,7 @@ sed -n '/^#DUNSTRC$/,/^#DUNSTRCEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$
 #######SCRIPTS#########
 #######################
 
-mkdir -p ~/.local/scripts
+mkdir -p ~/.local/bin
 
 sed -n '/^#MOUNTLOCALVOLSCRIPT$/,/^#MOUNTLOCALVOLSCRIPTEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/mountlocalvol
 
@@ -1197,15 +1197,15 @@ sed -i "s/line_numbers false/line_numbers relative/" ~/.config/ranger/rc.conf
 #######################
 #########KEYD##########
 #######################
-echo '[id]' > /etc/keyd/default.conf
-echo ' ' > /etc/keyd/default.conf
-echo '*' > /etc/keyd/default.conf
-echo ' ' > /etc/keyd/default.conf
-echo '[main]' > /etc/keyd/default.conf
-echo ' ' > /etc/keyd/default.conf
-echo 'capslock = esc' > /etc/keyd/default.conf
-echo ' ' > /etc/keyd/default.conf
-echo 'esc = capslock' > /etc/keyd/default.conf
+echo '[ids]' | sudo tee /etc/keyd/default.conf
+echo ' ' | sudo tee -a /etc/keyd/default.conf
+echo '*' | sudo tee -a /etc/keyd/default.conf
+echo ' ' | sudo tee -a /etc/keyd/default.conf
+echo '[main]' | sudo tee -a /etc/keyd/default.conf
+echo ' ' | sudo tee -a /etc/keyd/default.conf
+echo 'capslock = esc' | sudo tee -a /etc/keyd/default.conf
+echo ' ' | sudo tee -a /etc/keyd/default.conf
+echo 'esc = capslock' | sudo tee -a /etc/keyd/default.conf
 
 # Making all of the generated scripts executable
 
