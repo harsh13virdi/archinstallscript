@@ -542,7 +542,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 
 mkdir -p ~/.local/share/nvim/undodir
 mkdir -p ~/.config/nvim
-sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.config/nvim/init.vim
+sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/nvim/init.vim
 
 ##INITVIM#
 #hi Normal guibg=NONE ctermbg=NONE
