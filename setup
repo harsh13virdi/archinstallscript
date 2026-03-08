@@ -275,6 +275,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #exec-once = systemctl --user start hyprpolkitagent
 #exec-once = hyprpaper
 #exec-once = udiskie
+#exec-once = sudo systemctl restart systemd-sysctl.service
 #exec-once = xrdb -load ~/.cache/wal/colors.Xresources
 #exec-once = gsettings set org.gnome.desktop.interface gtk-theme "oomox-colors-oomox"
 #exec-once = gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
