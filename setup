@@ -139,7 +139,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost mumble
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -1265,7 +1265,7 @@ sudo pacman -Rsn go
 
 # Installing Aur Packages
 
-yay -Syu xpadneo-dkms python-pywal16 themix-theme-oomox-git oomox-qt5-styleplugin-git oomox-qt6-styleplugin-git
+yay -Syu xpadneo-dkms python-pywal16 themix-theme-oomox-git oomox-qt5-styleplugin-git oomox-qt6-styleplugin-git bitwarden-bin
 
 # Setting up Wallpaper for first use
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-306.jpg
