@@ -190,6 +190,7 @@ sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash
 #export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 #export PATH=~/.local/bin:$PATH
 #export EDITOR=nvim
+#export VISUAL=nvim
 #export TERMINAL=alacritty
 #export RANGER_LOAD_DEFAULT_RC=FALSE
 #
@@ -275,6 +276,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #exec-once = hyprpaper
 #exec-once = udiskie
 #exec-once = xrdb -load ~/.cache/wal/colors.Xresources
+#exec-once = gsettings set org.gnome.desktop.interface gtk-theme "oomox-colors-oomox"
+#exec-once = gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 #
 ##############################
 #### ENVIRONMENT VARIABLES ###
@@ -284,17 +287,18 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 ##Nvidia GPU 
 ##env = LIBVA_DRIVER_NAME,nvidia
 ##env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-
+#
 ##Hyprland
 #env = XDG_CURRENT_DESKTOP,Hyprland
 #env = XDG_SESSION_TYPE,wayland
 #env = XDG_SESSION_DESKTOP,Hyprland
 #env = XCURSOR_SIZE,24
 #env = HYPRCURSOR_SIZE,24
-
+#
 ##QT
-#env = QT_QPA_PLATFORMTHEME,hyprqt6engine
-
+#env = QT_QPA_PLATFORM=wayland
+#env = QT_STYLE_OVERRIDE,Oomox
+#
 ####################
 #### PERMISSIONS ###
 ####################
@@ -1151,7 +1155,7 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 #cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 #cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
-#
+#/opt/oomox/plugins/theme_oomox/change_color.sh ~/.cache/wal/colors-oomox
 #xrdb -load ~/.cache/wal/colors.Xresources
 #dunstctl reload
 #killall -SIGUSR2 waybar
@@ -1261,10 +1265,10 @@ sudo pacman -Rsn go
 
 # Installing Aur Packages
 
-yay -Syu xpadneo-dkms python-pywal16
+yay -Syu xpadneo-dkms python-pywal16 themix-theme-oomox-git oomox-qt5-styleplugin-git oomox-qt6-styleplugin-git
 
 # Setting up Wallpaper for first use
-wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-257.jpg
+wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-306.jpg
 echo "wallpaper {" > ~/.config/hypr/hyprpaper.conf
 echo "  monitor =" >> ~/.config/hypr/hyprpaper.conf
 echo "  path = /home/$(whoami)/Pictures/Wallpapers/b-306.jpg" >> ~/.config/hypr/hyprpaper.conf
@@ -1275,6 +1279,8 @@ echo "splash = 0" >> ~/.config/hypr/hyprpaper.conf
 cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
+cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+/opt/oomox/plugins/theme_oomox/change_color.sh ~/.cache/wal/colors-oomox
 xrdb -load ~/.cache/wal/colors.Xresources
 
 # Setting up pywal for qutebrowser
