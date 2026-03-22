@@ -206,9 +206,9 @@ sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash
 #  . /usr/share/bash-completion/bash_completion
 #fi
 #
-#if test "$TERM" != "linux"
+#if [[ "$TERM" != "linux" ]]; then
 #   eval "$(starship init bash)"
-#end
+#fi
 ##BASHRCEND#
 
 mkdir -p ~/.config/git
