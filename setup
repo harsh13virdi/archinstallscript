@@ -206,7 +206,9 @@ sed -n '/^##BASHRC#$/,/^##BASHRCEND#$/p' ~/arch_install3.sh | cut -c2- > ~/.bash
 #  . /usr/share/bash-completion/bash_completion
 #fi
 #
-#eval "$(starship init bash)"
+#if test "$TERM" != "linux"
+#   eval "$(starship init bash)"
+#end
 ##BASHRCEND#
 
 mkdir -p ~/.config/git
@@ -244,10 +246,10 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #################
 #
 ## See https://wiki.hyprland.org/Configuring/Monitors/
-##monitor=DP-2, 2560x1080@99.94, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 1
-#monitor=DP-2, 2560x1080@99.94, 0x0, 1, vrr, 1
-##monitor=HDMI-A-2, 2560x1080@120.00, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 1
-##monitor=HDMI-A-2, 2560x1080@120.00, 0x0, 1, vrr, 1
+##monitor=DP-2, 2560x1080@99.94, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 0
+#monitor=DP-2, 2560x1080@99.94, 0x0, 1, vrr, 0
+##monitor=HDMI-A-2, 2560x1080@120.00, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98, vrr, 0
+##monitor=HDMI-A-2, 2560x1080@120.00, 2561x0, 1, vrr, 0
 ##monitor=DP-2, disable
 #monitor=HDMI-A-2, disable
 #
@@ -277,8 +279,6 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #exec-once = udiskie
 #exec-once = sudo systemctl restart systemd-sysctl.service
 #exec-once = xrdb -load ~/.cache/wal/colors.Xresources
-#exec-once = gsettings set org.gnome.desktop.interface gtk-theme "oomox-colors-oomox"
-#exec-once = gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 #
 ##############################
 #### ENVIRONMENT VARIABLES ###
@@ -297,8 +297,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #env = HYPRCURSOR_SIZE,24
 #
 ##QT
-#env = QT_QPA_PLATFORM=wayland
-#env = QT_STYLE_OVERRIDE,Oomox
+#env = QT_QPA_PLATFORM,wayland
+#env = QT_STYLE_OVERRIDE,qt6ct
 #
 ####################
 #### PERMISSIONS ###
@@ -528,8 +528,6 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #windowrule = workspace 6 silent,match:title .*Discord
 #windowrule = workspace 6 silent,match:title .*TeamSpeak.*
 #windowrule = workspace 6 silent,match:title .*Mumble.*
-#windowrule = workspace 7 silent,match:class .*pcmanfm
-#windowrule = workspace 7 silent,match:title .*nsxiv
 #windowrule = workspace 8 silent,match:title .*qutebrowser
 #
 ## Ignore maximize requests from apps. You'll probably like this.
@@ -549,24 +547,45 @@ sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- | sed '
 #hi Normal guibg=NONE ctermbg=NONE
 #syntax enable
 #filetype plugin on
-#set nu rnu 
-#set cursorline 
-#set wrap 
-#set textwidth=0 wrapmargin=0 
-#set linebreak 
-#set scrolloff=8 sidescrolloff=8
-#set tabstop=4 softtabstop=4 shiftwidth=4 
-#set expandtab smartindent autoindent
-#set ignorecase smartcase incsearch
-#set notermguicolors showmatch showmode showcmd
-#set nobackup noswapfile undofile undodir=~/.local/share/nvim/undodir
-#set nocompatible noerrorbells hidden 
+#set nu
+#set rnu
+#set cursorline
+#set wrap
+#set textwidth=0
+#set wrapmargin=0
+#set linebreak
+#set scrolloff=8
+#set sidescrolloff=8
+#set tabstop=4 
+#set softtabstop=4 
+#set shiftwidth=4 
+#set expandtab 
+#set smartindent 
+#set autoindent
+#set ignorecase 
+#set smartcase 
+#set incsearch
+#set notermguicolors 
+#set showmatch 
+#set showmode 
+#set showcmd
+#set nobackup 
+#set noswapfile 
+#set undofile 
+#set undodir=~/.local/share/nvim/undodir
+#set nocompatible 
+#set noerrorbells 
+#set hidden 
 #set iskeyword+=- 
 #set path+=** 
 #set clipboard+=unnamedplus 
-#set wildmenu spell spelllang=en_us
-#set splitbelow splitright
-#set showtabline=1 tabline=''
+#set wildmenu 
+#set spell 
+#set spelllang=en_us
+#set splitbelow 
+#set splitright
+#set showtabline=1 
+#set tabline=''
 #let mapleader = " "
 #nnoremap <leader>c :nohlsearch<CR>
 #nnoremap Y y$
@@ -1001,13 +1020,18 @@ sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | 
 #
 #/*WAYBARSTYLEEND*/
 
+
+#sed -n '/^##WALQSS$/,/^##WALQSSEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/wal/templates/wal.qss
+
+##WALQSS
+##WALQSSEND
+
 mkdir ~/.config/flameshot
 sed -n '/#\/\/FLAMESHOTCONFIG/,/#\/\/FLAMESHOTCONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/flameshot.ini
 
 #//FLAMESHOTCONFIG
 #[General]
 #contrastOpacity=188
-#savePath=~/Pictures
 #useGrimAdapter=true
 #uiColor={color1}
 #contrastUiColor={color10}
@@ -1097,7 +1121,7 @@ sed -n '/^#MOUNTSMBVOLSCRIPT$/,/^#MOUNTSMBVOLSCRIPTEND$/p' ~/arch_install3.sh | 
 #sudo mount -a
 #MOUNTSMBVOLSCRIPTEND
 
-sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/disableipv6
+sed -n '/^#DISABLEIPV6$/,/^#DISABLEIPV6END$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/disableipv6
 
 #DISABLEIPV6
 ##!/bin/sh
@@ -1113,7 +1137,7 @@ sed -n '/^#DISABLEIPV6$/,/^#DISABLEIP6END$/p' ~/arch_install3.sh | cut -c2- | se
 #cat /etc/sysctl.d/40-ipv6.conf
 #
 #echo "Add -->sudo systemctl restart systemd-sysctl.service &<-- to your init script of liking to automatically unbind the ipv6 address assigned to your ethernet controller"
-#DISABLEIP6END
+#DISABLEIPV6END
 
 sed -n '/^#FUZZYOPEN$/,/^#FUZZYOPENEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.local/bin/fuzzyopen
 
@@ -1156,7 +1180,6 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 #cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 #cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
-#/opt/oomox/plugins/theme_oomox/change_color.sh ~/.cache/wal/colors-oomox
 #xrdb -load ~/.cache/wal/colors.Xresources
 #dunstctl reload
 #killall -SIGUSR2 waybar
@@ -1168,6 +1191,12 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #######################
 mkdir -p ~/.config/rofi
 echo '@theme "dmenu.rasi"' > ~/.config/rofi/config.rasi
+
+
+#######################
+#########QT6###########
+#######################
+mkdir -p ~/.config/qt6ct
 
 #######################
 ######ALACRITTY########
@@ -1266,7 +1295,7 @@ sudo pacman -Rsn go
 
 # Installing Aur Packages
 
-yay -Syu xpadneo-dkms python-pywal16 themix-theme-oomox-git oomox-qt5-styleplugin-git oomox-qt6-styleplugin-git bitwarden-bin
+yay -Syu xpadneo-dkms python-pywal16 bitwarden-bin
 
 # Setting up Wallpaper for first use
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-306.jpg
@@ -1281,7 +1310,6 @@ cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
-/opt/oomox/plugins/theme_oomox/change_color.sh ~/.cache/wal/colors-oomox
 xrdb -load ~/.cache/wal/colors.Xresources
 
 # Setting up pywal for qutebrowser
