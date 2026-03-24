@@ -139,7 +139,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost mumble
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost mumble breeze-icons
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -297,7 +297,6 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #env = HYPRCURSOR_SIZE,24
 #
 ##QT
-#env = QT_QPA_PLATFORM,wayland
 #env = QT_STYLE_OVERRIDE,qt6ct
 #
 ####################
@@ -433,7 +432,8 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #bind = $mainMod, Q, killactive,
 #bind = SUPERSHIFT, Q, exit,
 #bind = $mainMod, E, exec, $fileManager
-#bind = $mainMod, V, togglefloating,
+#bind = $mainMod, SPACE, togglefloating,
+#bind = $mainMod, V, exec, alacritty -e nvim
 #bind = $mainMod, R, exec, $menu
 #bind = Alt_L, F4, exec, kill -9 $(hyprctl activewindow | grep pid | tail -1 | awk '{print$2}')
 ## bind = $mainMod, J, togglesplit, # dwindle
@@ -503,6 +503,7 @@ sed -n '/^###HYPRLANDCONF########$/,/^##HYPRLANDCONFEND######$/p' ~/arch_install
 #bind = $mainMod SHIFT, D, exec, discord
 #bind = $mainMod SHIFT ALT_L, B, exec, qutebrowser
 #bind = , Print, exec, flameshot screen -p ~/Pictures/
+#bind = SHIFT, Print, exec, flameshot gui -p ~/Pictures/
 #
 ## Global Keybinds
 #bind = , mouse:276, pass, class:^(TeamSpeak)$  
@@ -612,7 +613,7 @@ sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- | sed '
 #vnoremap < <gv
 #vnoremap > >gv
 #nnoremap <leader>e :Explore<CR>
-#nnoremap <leader>ff :find
+#nnoremap <leader>ff :find 
 #nnoremap J mzJ`z
 #nnoremap <leader>rc :e $MYVIMRC<CR>
 #nnoremap <leader>rl :so $MYVIMRC<CR>
@@ -1020,11 +1021,86 @@ sed -n '/#\/\*WAYBARSTYLE\*\//,/#\/\*WAYBARSTYLEEND\*\//p' ~/arch_install3.sh | 
 #
 #/*WAYBARSTYLEEND*/
 
+sed -n '/#\/\*WALQSS\*\//,/#\/\*WALQSSEND\*\//p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/wal.qss
 
-#sed -n '/^##WALQSS$/,/^##WALQSSEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/wal/templates/wal.qss
+#/*WALQSS*/
+#/* Top-level menu bar */
+#QMenuBar {
+#    background-color: {color14};   /* Dark background for the menu bar */
+#    color: {color0};              /* Light text color for menu items */
+#}
+#
+#/* Menu items in the menu bar (File, Edit, etc.) */
+#QMenuBar::item {
+#    background-color: transparent; /* Keep normal state transparent to show bar bg */
+#    color: {color0};                /* Normal/inactive text color */
+#    padding: 4px 10px;             /* Optional: spacing around text */
+#}
+#
+#/* Hovered menu item */
+#QMenuBar::item:selected {
+#    background-color: {color2};     /* Slightly lighter background when hovering */
+#    color: {color0};                /* Text color on hover */
+#}
+#
+#/* Menu bar item when the window is inactive */
+#QMenuBar:disabled {
+#    background-color: {color7};     /* Dimmer background when app is inactive */
+#    color: {color8};                /* Faded text color */
+#}
+#
+#/* Dropdown menus (submenus) */
+#QMenu {
+#    background-color: {color14};     /* Background of dropdown menus */
+#    color: {color0};                /* Text color of dropdown items */
+#}
+#
+#/* Dropdown menu item hover */
+#QMenu::item:selected {
+#    background-color: {color2};     /* Hover background for submenu items */
+#    color: {color0};                /* Hover text for submenu items */
+#}
+#/*WALQSSEND*/
 
-##WALQSS
-##WALQSSEND
+sed -n '/^##GTKCSS$/,/^##GTKCSSEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/wal/templates/gtk.css
+
+##GTKCSS
+#/* Menu bar background and general text */
+#menubar {
+#    background-color: {color14};  /* Dark slate background for the menu bar */
+#    color: {color0};             /* Light text color for menu items (File, Edit, etc.) */
+#}
+#
+#/* Optional: When hovering over a menu item */
+#menubar menu:hover,
+#menubar menu:selected,
+#menubar menu:active {
+#    background-color: {color2};  /* Slightly lighter gray on hover */
+#    color: {color0};             /* Text color on hover */
+#}
+#
+#/* Optional: Submenu items (dropdown items) */
+#menu {
+#    background-color: {color14};  /* Same dark background for dropdown menus */
+#    color: {color0};             /* Same light text */
+#}
+#
+#menu menuitem:hover,
+#menu menuitem:selected,
+#menu menuitem:active
+#{
+#    background-color: {color2};  /* Slightly lighter gray when hovering over a dropdown item */
+#    color: {color0};             /* Hover text color */
+#}
+#
+#menubar menuitem:hover,
+#menubar menuitem:prelight,
+#menubar menuitem:selected,
+#menubar menuitem:active {
+#    background-color: {color2}; /* Replace with your solid color */
+#    color: {color0};            /* Text color on highlight */
+#}
+##GTKCSSEND
 
 mkdir ~/.config/flameshot
 sed -n '/#\/\/FLAMESHOTCONFIG/,/#\/\/FLAMESHOTCONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/flameshot.ini
@@ -1180,6 +1256,7 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 #cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 #cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+#cp ~/.cache/wal/gtk.css ~/.config/gtk-3.0/gtk.css
 #xrdb -load ~/.cache/wal/colors.Xresources
 #dunstctl reload
 #killall -SIGUSR2 waybar
@@ -1197,6 +1274,77 @@ echo '@theme "dmenu.rasi"' > ~/.config/rofi/config.rasi
 #########QT6###########
 #######################
 mkdir -p ~/.config/qt6ct
+
+echo "[Appearance]" > ~/.config/qt6ct/qt6ct.conf
+echo "color_scheme_path=/home/harsh/.config/qt6ct/style-colors.conf" >> ~/.config/qt6ct/qt6ct.conf
+echo "custom_palette=true" >> ~/.config/qt6ct/qt6ct.conf
+echo "standard_dialogs=gtk3" >> ~/.config/qt6ct/qt6ct.conf
+echo "style=Adwaita-Dark" >> ~/.config/qt6ct/qt6ct.conf
+echo "" >> ~/.config/qt6ct/qt6ct.conf
+echo "[Fonts]" >> ~/.config/qt6ct/qt6ct.conf
+echo 'fixed="Terminess Nerd Font,12,-1,5,700,0,0,0,0,0,0,0,0,0,0,1,Regular"' >> ~/.config/qt6ct/qt6ct.conf
+echo 'general="Terminess Nerd Font,12,-1,5,700,0,0,0,0,0,0,0,0,0,0,1,Regular"' >> ~/.config/qt6ct/qt6ct.conf
+echo "" >> ~/.config/qt6ct/qt6ct.conf
+echo "[Interface]" >> ~/.config/qt6ct/qt6ct.conf
+echo "activate_item_on_single_click=1" >> ~/.config/qt6ct/qt6ct.conf
+echo "buttonbox_layout=0" >> ~/.config/qt6ct/qt6ct.conf
+echo "cursor_flash_time=1000" >> ~/.config/qt6ct/qt6ct.conf
+echo "dialog_buttons_have_icons=0" >> ~/.config/qt6ct/qt6ct.conf
+echo "double_click_interval=400" >> ~/.config/qt6ct/qt6ct.conf
+echo "gui_effects=@Invalid()" >> ~/.config/qt6ct/qt6ct.conf
+echo "keyboard_scheme=2" >> ~/.config/qt6ct/qt6ct.conf
+echo "menus_have_icons=false" >> ~/.config/qt6ct/qt6ct.conf
+echo "show_shortcuts_in_context_menus=true" >> ~/.config/qt6ct/qt6ct.conf
+echo "stylesheets=$HOME/.cache/wal/wal.qss" >> ~/.config/qt6ct/qt6ct.conf
+echo "toolbutton_style=4" >> ~/.config/qt6ct/qt6ct.conf
+echo "underline_shortcut=1" >> ~/.config/qt6ct/qt6ct.conf
+echo "wheel_scroll_lines=3" >> ~/.config/qt6ct/qt6ct.conf
+echo "" >> ~/.config/qt6ct/qt6ct.conf
+echo "[SettingsWindow]" >> ~/.config/qt6ct/qt6ct.conf
+echo "geometry=@ByteArray(\x1\xd9\xd0\xcb\0\x3\0\0\0\0\0\0\0\0\0\0\0\0\x5u\0\0\x4\xf\0\0\0\0\0\0\0\0\0\0\x5u\0\0\x4\xf\0\0\0\0\x2\0\0\0\n\0\0\0\0\0\0\0\0\0\0\0\x5u\0\0\x4\xf)" >> ~/.config/qt6ct/qt6ct.conf
+echo "" >> ~/.config/qt6ct/qt6ct.conf
+echo "[Troubleshooting]" >> ~/.config/qt6ct/qt6ct.conf
+echo "force_raster_widgets=1" >> ~/.config/qt6ct/qt6ct.conf
+echo "ignored_applications=@Invalid()" >> ~/.config/qt6ct/qt6ct.conf
+
+
+echo "[ColorScheme]" >> ~/.config/qt6ct/style-colors.conf
+echo "active_colors=#ffeeeeec, #ff373737, #ff515151, #ff444444, #ff1e1e1e, #ff2a2a2a, #ffeeeeec, #ffffffff, #ffeeeeec, #ff2d2d2d, #ff353535, #19000000, #ff15539e, #ffffffff, #ff3584e4, #ff1b6acb, #ff2d2d2d, #ff000000, #b2262626, #ffffffff, #ff919190, #ff308cc6" >> ~/.config/qt6ct/style-colors.conf
+echo "disabled_colors=#ff919190, #ff323232, #ff515151, #ff444444, #ff1e1e1e, #ff2a2a2a, #ff919190, #ffffffff, #ff919190, #ff2d2d2d, #ff323232, #19000000, #ff15539e, #ffffffff, #ff3584e4, #ff1b6acb, #ff2d2d2d, #ff000000, #b2262626, #ffffffff, #ff919190, #ff919191" >> ~/.config/qt6ct/style-colors.conf
+echo "inactive_colors=#ffeeeeec, #ff373737, #ff515151, #ff444444, #ff1e1e1e, #ff2a2a2a, #ffeeeeec, #ffffffff, #ffeeeeec, #ff2d2d2d, #ff353535, #19000000, #ff15539e, #ffffffff, #ff3584e4, #ff1b6acb, #ff2d2d2d, #ff000000, #b2262626, #ffffffff, #ff919190, #ff308cc6" >> ~/.config/qt6ct/style-colors.conf
+
+
+#######################
+#######GTK3/4##########
+#######################
+mkdir -p  ~/.config/gtk-3.0
+mkdir -p  ~/.config/gtk-4.0
+echo '[Settings]' > ~/.config/gtk-3.0/settings.ini
+echo 'gtk-theme-name=Adwaita' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-icon-theme-name=Adwaita' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-font-name=Terminess Nerd Font Medium 12' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-cursor-theme-name=default' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-cursor-theme-size=24' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-toolbar-style=GTK_TOOLBAR_ICONS' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-button-images=0' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-menu-images=0' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-enable-event-sounds=1' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-enable-input-feedback-sounds=0' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-xft-antialias=1' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-xft-hinting=1' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-xft-hintstyle=hintslight' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-xft-rgba=rgb' >> ~/.config/gtk-3.0/settings.ini
+echo 'gtk-application-prefer-dark-theme=1' >> ~/.config/gtk-3.0/settings.ini
+
+echo '[Settings]' > ~/.config/gtk-4.0/settings.ini
+echo 'gtk-theme-name=Adwaita' >> ~/.config/gtk-4.0/settings.ini
+echo 'gtk-icon-theme-name=Adwaita' >> ~/.config/gtk-4.0/settings.ini
+echo 'gtk-font-name=Terminess Nerd Font Medium 12' >> ~/.config/gtk-4.0/settings.ini
+echo 'gtk-cursor-theme-name=default' >> ~/.config/gtk-4.0/settings.ini
+echo 'gtk-cursor-theme-size=24' >> ~/.config/gtk-4.0/settings.ini
+echo 'gtk-application-prefer-dark-theme=1' >> ~/.config/gtk-4.0/settings.ini
+
 
 #######################
 ######ALACRITTY########
@@ -1295,7 +1443,7 @@ sudo pacman -Rsn go
 
 # Installing Aur Packages
 
-yay -Syu xpadneo-dkms python-pywal16 bitwarden-bin
+yay -Syu xpadneo-dkms python-pywal16 bitwarden-bin adwaita-qt6-git
 
 # Setting up Wallpaper for first use
 wal --cols16 lighten -n --contrast 1.5 -i ~/Pictures/Wallpapers/b-306.jpg
@@ -1310,6 +1458,8 @@ cp ~/.cache/wal/dmenu.rasi ~/.config/rofi/dmenu.rasi
 cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+cp ~/.cache/wal/gtk.css ~/.config/gtk-3.0/gtk.css
+ln -s ~/.config/gtk-3.0/gtk.css ~/.config/gtk-4.0/gtk.css
 xrdb -load ~/.cache/wal/colors.Xresources
 
 # Setting up pywal for qutebrowser
