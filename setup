@@ -739,6 +739,47 @@ sed -n '/#\/\/WAYBARCONFIG/,/#\/\/WAYBARCONFIGEND/p' ~/arch_install3.sh | cut -c
 #}
 #//WAYBARCONFIGEND
 
+mkdir -p ~/.config/Mumble/Mumble
+mkdir -p ~/.local/share/Mumble/Mumble/Themes/Wal
+sed -n '/^##MUMBLE#$/,/^##MUMBLEEND#$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$d' > ~/.config/Mumble/Mumble/mumble_settings.json
+
+##MUMBLE#
+#{
+#    "audio": {
+#        "echo_cancel_mode": "Disabled",
+#        "input_system": "PipeWire",
+#        "loudness": 6977,
+#        "mute_cue_popup_shown": true,
+#        "output_system": "PipeWire",
+#        "play_mute_cue": false,
+#        "vad_max": 0.45,
+#        "vad_min": 0.25
+#    },
+#    "last_connection": {
+#        "server_name": "vps.aroaduntraveled.com"
+#    },
+#    "misc": {
+#        "audio_wizard_has_been_shown": true,
+#    },
+#    "mumble_has_quit_normally": true,
+#    "network": {
+#        "auto_connect_to_last_server": true
+#    },
+#    "settings_version": 1,
+#    "ui": {
+#        "config_geometry": "AdnQywADAAAAAAJDAAAAMgAACGcAAAPeAAACQwAAADIAAAhnAAAD3gAAAAAAAAAACgAAAAJDAAAAMgAACGcAAAPe",
+#        "connect_dialog_geometry": "AdnQywADAAAAAABGAAAAMgAAAoMAAAGfAAAARgAAADIAAAKDAAABnwAAAAAAAAAACgAAAABGAAAAMgAAAoMAAAGf",
+#        "connect_dialog_header_state": "AAAA/wAAAAAAAAABAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAigAAAADAQEAAAAAAAABAAAAAgAAAGT/////AAAAgQAAAAAAAAADAAABrAAAAAEAAAABAAAAOgAAAAEAAAADAAAAQgAAAAEAAAADAAAD6AAAAABk",
+#        "disable_public_server_list": true,
+#        "quit_behavior": "AlwaysQuit",
+#        "send_usage_statistics": false,
+#        "theme": "Wal",
+#        "theme_style": "Wal-Dark",
+#        "window_geometry": "AdnQywADAAAAAAAFAAAAIwAACfoAAAQyAAAABQAAACMAAAn6AAAEMgAAAAAAAAAACgAAAAAFAAAAIwAACfoAAAQy",
+#        "window_state": "AAAA/wAFAEj9AAAAAgAAAAAAAAFlAAAD0fwCAAAAAvsAAAAMAHEAZAB3AEwAbwBnAQAAAD8AAAOzAAAAeQD////7AAAADgBxAGQAdwBDAGgAYQB0AQAAA/gAAAAYAAAAGAAAABgAAAACAAAAAAAAAAD8AQAAAAH7AAAAJABxAGQAdwBNAGkAbgBpAG0AYQBsAFYAaQBlAHcATgBvAHQAZQAAAAAA/////wAAAFoA////AAAIiwAAA9EAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAACAAAAAQAAABoAcQB0AEkAYwBvAG4AVABvAG8AbABiAGEAcgEAAAAA/////wAAAAAAAAAA"
+#    }
+#}
+##MUMBLEEND#
 
 #######################
 #####PYWALTEMPLATE#####
@@ -1102,6 +1143,158 @@ sed -n '/^##GTKCSS$/,/^##GTKCSSEND$/p' ~/arch_install3.sh | cut -c2- | sed '1d;$
 #}
 ##GTKCSSEND
 
+sed -n '/#\/\*MUMBLEQSS\*\//,/#\/\*MUMBLEQSSEND\*\//p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/Wal-Dark.qss
+
+#/*MUMBLEQSS*/
+#QWidget {
+#    background-color: #1e1e1e;
+#    color: #dcdcdc;
+#    font-family: "Terminess Nerd Font", Arial, sans-serif;
+#    font-size: 12pt;
+#}
+#
+#/* Main Window */
+#QMainWindow {
+#    background-color: #1e1e1e;
+#}
+#
+#/* Buttons */
+#QPushButton {
+#    background-color: #2e2e2e;
+#    color: #dcdcdc;
+#    border: 1px solid #444;
+#    border-radius: 4px;
+#    padding: 4px 8px;
+#}
+#
+#QPushButton:hover {
+#    background-color: #3a3a3a;
+#}
+#
+#QPushButton:pressed {
+#    background-color: #505050;
+#}
+#
+#/* Line Edits / Text Input */
+#QLineEdit, QTextEdit {
+#    background-color: #2a2a2a;
+#    color: #dcdcdc;
+#    border: 1px solid #555;
+#    border-radius: 3px;
+#}
+#
+#/* Tabs */
+#QTabWidget::pane {
+#    border: 1px solid #444;
+#    background: #1e1e1e;
+#}
+#
+#QTabBar::tab {
+#    background: #2e2e2e;
+#    color: #dcdcdc;
+#    padding: 5px 10px;
+#    border-top-left-radius: 4px;
+#    border-top-right-radius: 4px;
+#}
+#
+#QTabBar::tab:selected {
+#    background: #3a3a3a;
+#}
+#
+#/* Tree Views / Channel & User Lists */
+#QTreeView {
+#    background-color: #1e1e1e;
+#    alternate-background-color: #2a2a2a;
+#    color: #dcdcdc;
+#    border: none;
+#}
+#
+#QTreeView::item:selected {
+#    background-color: #505050;
+#    color: #ffffff;
+#}
+#
+#/* Scroll Bars */
+#QScrollBar:vertical {
+#    background: #2a2a2a;
+#    width: 12px;
+#    margin: 0px 0px 0px 0px;
+#    border-radius: 6px;
+#}
+#
+#QScrollBar::handle:vertical {
+#    background: #555;
+#    min-height: 20px;
+#    border-radius: 6px;
+#}
+#
+#QScrollBar::handle:vertical:hover {
+#    background: #777;
+#}
+#
+#QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+#    height: 0;
+#}
+#
+#/* Tooltips */
+#QToolTip {
+#    background-color: #333;
+#    color: #ffffff;
+#    border: 1px solid #555;
+#}
+#
+#/* Menu Bar */
+#QMenuBar {
+#    background-color: {color14};
+#    color: {color0};
+#}
+#
+#QMenuBar::item {
+#    background-color: transparent; /* Keep normal state transparent to show bar bg */
+#    color: {color0};                /* Normal/inactive text color */
+#    padding: 4px 10px;             /* Optional: spacing around text */
+#}
+#
+#QMenuBar::item:selected {
+#    background-color: {color2};
+#    color: {color0};
+#}
+#
+#/* Menus */
+#QMenu {
+#    background-color: {color14};
+#    color: {color0};
+#    border: 1px solid #444;
+#}
+#
+#QMenu::item:selected {
+#    background-color: {color2};
+#    color: {color0};
+#}
+#
+#/* Checkboxes & Radio Buttons */
+#QCheckBox, QRadioButton {
+#    color: #dcdcdc;
+#}
+#
+#/* Sliders */
+#QSlider::groove:horizontal {
+#    background: #2a2a2a;
+#    height: 6px;
+#    border-radius: 3px;
+#}
+#
+#QSlider::handle:horizontal {
+#    background: #555;
+#    width: 14px;
+#    border-radius: 7px;
+#}
+#
+#QSlider::handle:horizontal:hover {
+#    background: #777;
+#}
+#/*MUMBLEQSSEND*/
+
 mkdir ~/.config/flameshot
 sed -n '/#\/\/FLAMESHOTCONFIG/,/#\/\/FLAMESHOTCONFIGEND/p' ~/arch_install3.sh | cut -c2- > ~/.config/wal/templates/flameshot.ini
 
@@ -1257,6 +1450,7 @@ sed -n '/^#UPDATETHEME$/,/^#UPDATETHEMEEND$/p' ~/arch_install3.sh | cut -c2- | s
 #cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 #cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 #cp ~/.cache/wal/gtk.css ~/.config/gtk-3.0/gtk.css
+#cp ~/.cache/wal/Wal-Dark.qss ~/.local/share/Mumble/Mumble/Themes/Wal/Wal-Dark.qss
 #xrdb -load ~/.cache/wal/colors.Xresources
 #dunstctl reload
 #killall -SIGUSR2 waybar
@@ -1459,6 +1653,7 @@ cp ~/.cache/wal/waybar-style.css ~/.config/waybar/style.css
 cp ~/.cache/wal/flameshot.ini ~/.config/flameshot/flameshot.ini
 cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 cp ~/.cache/wal/gtk.css ~/.config/gtk-3.0/gtk.css
+cp ~/.cache/wal/Wal-Dark.qss ~/.local/share/Mumble/Mumble/Themes/Wal/Wal-Dark.qss
 ln -s ~/.config/gtk-3.0/gtk.css ~/.config/gtk-4.0/gtk.css
 xrdb -load ~/.cache/wal/colors.Xresources
 
