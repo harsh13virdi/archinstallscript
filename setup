@@ -139,7 +139,7 @@ exit
 printf '\033c'
 
 # Installing programs 
-sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser xclip udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost mumble breeze-icons
+sudo pacman -Syu --noconfirm hyprland polkit xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpaper hypridle hyprlock hyprpolkitagent waybar git nsxiv bash-completion mpv ffmpeg fzf man flameshot neovim dunst curl htop lazygit wiremix plocate pipewire lib32-pipewire pipewire-audio pipewire-alsa wireplumber pipewire-pulse 7zip rsync openssh starship ttf-terminus-nerd reflector ranger qutebrowser wl-clipboard udiskie alacritty rofi bluez bluez-utils bluetui otf-font-awesome perl-image-exiftool grim brightnessctl ufw rdesktop keyd bitwarden xorg-xrdb xorg-xhost mumble breeze-icons clang
 
 sudo systemctl enable bluetooth
 sudo systemctl enable keyd
@@ -627,6 +627,11 @@ sed -n '/^##INITVIM#$/,/^##INITVIMEND#$/p' ~/arch_install3.sh | cut -c2- | sed '
 #set statusline+=%=
 #set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 #set laststatus=2
+#
+#call plug#begin()
+#Plug 'prabirshrestha/vim-lsp'
+#Plug 'mattn/vim-lsp-settings'
+#call plug#end()
 #
 ##INITVIMEND#
 
@@ -1669,5 +1674,8 @@ cp ./qutewal.py ~/.config/qutebrowser/
 echo "config.load_autoconfig()" > ~/.config/qutebrowser/config.py
 echo "config.source('qutewal.py')" >> ~/.config/qutebrowser/config.py
 
+# Setting up Neovim Plugin Manager
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 exit
